@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMatch</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="nav-menu">
+            <a href="index.html">Inicio</a>
+            <a href="2descubrir.html">Descubrir</a>
+            <a href="explorar.html">Explorar</a>
+            <a href="miperfil.html">Mi Perfil</a>
+        </nav>
+        <div class="logo-container">
+            <img src="Logo-removebg-preview.png" alt="Logo de BiteMatch">
+        </div>
+    </header>
+
+    <section>
+        <div class="intro-section">
+            <h2>🔥 <span class="texto-gradiente">Descubre los Nuevos Sabores</span></h2>
+            <p>Elige tu comida</p>
+        </div>
+    </section>
+
+    <main class="descubrir-container">
+        <section class="tinder-section">
+            <div class="food-card" id="foodCard">
+                <div class="indicadores-fotos" id="indicadoresFotos"></div>
+                <img src="" alt="Comida de BiteMatch" class="card-image-real" id="cardImagen">
+                
+                <div class="card-info-tinder">
+                    <h3 id="cardNombre">Cargando...</h3>
+                    <p id="cardDetalle">...</p>
+                </div>
+            </div>
+
+            <div class="tinder-buttons">
+                <button class="btn-tinder btn-dislike" id="btnDislike">
+                    <i class="fa-solid fa-xmark"></i>
+                    
+                </button>
+                <button class="btn-tinder btn-superlike" id="btnSuperlike">
+                    <i class="fa-solid fa-star"></i>
+                    
+                </button>
+                <button class="btn-tinder btn-like" id="btnLike">
+                    <i class="fa-solid fa-heart"></i>
+                    
+                </button>
+            </div>
+
+            <div class="match-popup" id="matchPopup">
+                <div class="match-content">
+                    <h2>¡Es un BiteMatch! 👑</h2>
+                    <p>A tu estómago y a este lugar les gusta lo mismo.</p>
+                    <div class="match-emoji">🍔🔥🍕</div>
+                    <button class="btn-continuar" id="btnCerrarMatch">Seguir buscando</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p class="slogan">"BiteMatch: Desliza. Antójate. Devora. (Proyecto académico sin fines de lucro. Todas las imágenes pertenecen a sus respectivos dueños.)"</p>
+        <p class="copyright">&copy; 2026 BiteMatch. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+      const localesComida = [
+    // --- PIZZAS ---
+    { 
+        nombre: "La Choza De La Pizza", 
+        categoria: "pizza", 
+        precio: "moderado", 
+        distancia: 1, 
+        calificacion: 4.2, 
+        detalle: "🍕 ⭐ 4.2 | 📍 1 km | Moderado • Pizza", 
+        fotos: [
+            "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Chef Johnny's", 
+        categoria: "pizza", 
+        precio: "premiun", 
+        distancia: 2, 
+        calificacion: 4.2, 
+        detalle: "🍕 ⭐ 4.2 | 📍 2 km | Premium • Pizza", 
+        fotos: [
+            "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "La Tradicional", 
+        categoria: "pizza", 
+        precio: "premiun", 
+        distancia: 3, 
+        calificacion: 4.2, 
+        detalle: "🍕 ⭐ 4.2 | 📍 3 km | Premium • Pizza", 
+        fotos: [
+            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Little Italy Pizza", 
+        categoria: "pizza", 
+        precio: "economico", 
+        distancia: 3, 
+        calificacion: 4.2, 
+        detalle: "🍕 ⭐ 4.2 | 📍 3 km | Económico • Pizza", 
+        fotos: [
+            "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Pixel Pizza", 
+        categoria: "pizza", 
+        precio: "moderado", 
+        distancia: 3, 
+        calificacion: 4.2, 
+        detalle: "🍕 ⭐ 4.2 | 📍 3 km | Moderado • Pizza", 
+        fotos: [
+            "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+
+    // --- HAMBURGUESAS ---
+    { 
+        nombre: "Imperial Burger", 
+        categoria: "hamburguesa", 
+        precio: "moderado", 
+        distancia: 2, 
+        calificacion: 4.3, 
+        detalle: "🍔 ⭐ 4.3 | 📍 2 km | Moderado • Hamburguesas", 
+        fotos: [
+            "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Donald's Diner", 
+        categoria: "hamburguesa", 
+        precio: "moderado", 
+        distancia: 1, 
+        calificacion: 4.4, 
+        detalle: "🍔 ⭐ 4.4 | 📍 1 km | Moderado • Hamburguesas", 
+        fotos: [
+            "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Winnie's", 
+        categoria: "hamburguesa", 
+        precio: "premiun", 
+        distancia: 2, 
+        calificacion: 4.3, 
+        detalle: "🍔 ⭐ 4.3 | 📍 2 km | Premium • Hamburguesas", 
+        fotos: [
+            "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Crazy Dogs", 
+        categoria: "hamburguesa", 
+        precio: "moderado", 
+        distancia: 12, 
+        calificacion: 4.3, 
+        detalle: "🍔 ⭐ 4.3 | 📍 12 km | Moderado • Hamburguesas", 
+        fotos: [
+             "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+
+    // --- SUSHI ---
+    { 
+        nombre: "Downtown Sushi", 
+        categoria: "sushi", 
+        precio: "moderado", 
+        distancia: 10, 
+        calificacion: 4.2, 
+        detalle: "🍣 ⭐ 4.2 | 📍 10 km | Moderado • Sushi", 
+        fotos: [
+            "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Yugen", 
+        categoria: "sushi", 
+        precio: "moderado", 
+        distancia: 6, 
+        calificacion: 4.6, 
+        detalle: "🍣 ⭐ 4.6 | 📍 6 km | Moderado • Sushi", 
+        fotos: [
+            "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Maki-to", 
+        categoria: "sushi", 
+        precio: "moderado", 
+        distancia: 8, 
+        calificacion: 4.4, 
+        detalle: "🍣 ⭐ 4.4 | 📍 8 km | Moderado • Sushi", 
+        fotos: [
+            "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+
+    // --- POSTRES ---
+    { 
+        nombre: "Donut Master", 
+        categoria: "postres", 
+        precio: "moderado", 
+        distancia: 2, 
+        calificacion: 4.1, 
+        detalle: "🍩 ⭐ 4.1 | 📍 2 km | Moderado • Donas y Postres", 
+        fotos: [
+            "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "La Artesanal", 
+        categoria: "postres", 
+        precio: "premiun", 
+        distancia: 2, 
+        calificacion: 4.3, 
+        detalle: "🍩 ⭐ 4.3 | 📍 2 km | Premium • Panadería y Repostería", 
+        fotos: [
+            "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "El Portal", 
+        categoria: "postres", 
+        precio: "economico", 
+        distancia: 1, 
+        calificacion: 4.1, 
+        detalle: "🍩 ⭐ 4.1 | 📍 1 km | Económico • Pastelería", 
+        fotos: [
+            "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Frosty Bar", 
+        categoria: "postres", 
+        precio: "moderado", 
+        distancia: 1, 
+        calificacion: 4.2, 
+        detalle: "🍦 ⭐ 4.2 | 📍 1 km | Moderado • Helados y Postres", 
+        fotos: [
+            "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Helados Rosita", 
+        categoria: "postres", 
+        precio: "moderado", 
+        distancia: 2, 
+        calificacion: 4.8, 
+        detalle: "🍦 ⭐ 4.8 | 📍 2 km | Moderado • Helados", 
+        fotos: [
+            "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Chicago", 
+        categoria: "postres", 
+        precio: "premiun", 
+        distancia: 1, 
+        calificacion: 4.3, 
+        detalle: "🍩 ⭐ 4.3 | 📍 1 km | Premium • Postres y Repostería", 
+        fotos: [
+            "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Pasteleria Bon Bon", 
+        categoria: "postres", 
+        precio: "premiun", 
+        distancia: 4, 
+        calificacion: 3.9, 
+        detalle: "🍩 ⭐ 3.9 | 📍 4 km | Premium • Pastelería", 
+        fotos: [
+            "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+
+    // --- VEGANO ---
+    { 
+        nombre: "El Veggie Club", 
+        categoria: "vegano", 
+        precio: "moderado", 
+        distancia: 3, 
+        calificacion: 4.5, 
+        detalle: "🌿 ⭐ 4.5 | 📍 3 km | Moderado • Comida Vegana", 
+        fotos: [
+            "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "NutriSoyBar", 
+        categoria: "vegano", 
+        precio: "premiun", 
+        distancia: 6, 
+        calificacion: 4.5, 
+        detalle: "🌿 ⭐ 4.5 | 📍 6 km | Premium • Nutrición Vegana", 
+        fotos: [
+            "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Green Essence", 
+        categoria: "vegano", 
+        precio: "moderado", 
+        distancia: 5, 
+        calificacion: 4.6, 
+        detalle: "🌿 ⭐ 4.6 | 📍 5 km | Moderado • Opciones Verdes y Saludables", 
+        fotos: [
+            "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Oasis Kalma", 
+        categoria: "vegano", 
+        precio: "economico", 
+        distancia: 4, 
+        calificacion: 4.3, 
+        detalle: "🌿 ⭐ 4.3 | 📍 4 km | Económico • Menú Vegetariano/Vegano", 
+        fotos: [
+            "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    
+    // --- COMIDA MEXICANA ---
+    { 
+        nombre: "Barrio Jalisco", 
+        categoria: "mexicana", 
+        precio: "economico", 
+        distancia: 5, 
+        calificacion: 1.0, 
+        detalle: "🌮 ⭐ 1.0 | 📍 5 km | Económico • Tacos y Antojitos", 
+        fotos: [
+            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Taqueria El Cielito Lindo", 
+        categoria: "mexicana", 
+        precio: "economico", 
+        distancia: 15, 
+        calificacion: 4.4, 
+        detalle: "🌮 ⭐ 4.4 | 📍 15 km | Económico • Taquería Mexicana", 
+        fotos: [
+            "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "El Burro Loco", 
+        categoria: "mexicana", 
+        precio: "moderado", 
+        distancia: 4, 
+        calificacion: 3.5, 
+        detalle: "🌮 ⭐ 3.5 | 📍 4 km | Moderado • Burritos y Tacos", 
+        fotos: [
+            "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Tacos Del Barrio", 
+        categoria: "mexicana", 
+        precio: "moderado", 
+        distancia: 6, 
+        calificacion: 4.3, 
+        detalle: "🌮 ⭐ 4.3 | 📍 6 km | Moderado • Tacos al Pastor", 
+        fotos: [
+            "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Chichi's Tacos", 
+        categoria: "mexicana", 
+        precio: "moderado", 
+        distancia: 2, 
+        calificacion: 4.0, 
+        detalle: "🌮 ⭐ 4.0 | 📍 2 km | Moderado • Comida Mexicana", 
+        fotos: [
+            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q me=80",
+            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "El Macizo", 
+        categoria: "mexicana", 
+        precio: "moderado", 
+        distancia: 2, 
+        calificacion: 4.4, 
+        detalle: "🌮 ⭐ 4.4 | 📍 2 km | Moderado • Comida Mexicana", 
+        fotos: [
+            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Los Chilitos", 
+        categoria: "mexicana", 
+        precio: "moderado", 
+        distancia: 2, 
+        calificacion: 4.5, 
+        detalle: "🌮 ⭐ 4.5 | 📍 2 km | Moderado • Restaurante Mexicano", 
+        fotos: [
+            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+
+    // --- POLLO ---
+    { 
+        nombre: "Pollo Del Campo", 
+        categoria: "pollo", 
+        precio: "economico", 
+        distancia: 1, 
+        calificacion: 4.3, 
+        detalle: "🍗 ⭐ 4.3 | 📍 1 km | Económico • Pollo", 
+        fotos: [
+            "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "La Granja", 
+        categoria: "pollo", 
+        precio: "moderado", 
+        distancia: 1, 
+        calificacion: 4.3, 
+        detalle: "🍗 ⭐ 4.3 | 📍 1 km | Moderado • Pollo", 
+        fotos: [
+            "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Tennessee Crispy", 
+        categoria: "pollo", 
+        precio: "moderado", 
+        distancia: 1, 
+        calificacion: 4.2, 
+        detalle: "🍗 ⭐ 4.2 | 📍 1 km | Moderado • Pollo", 
+        fotos: [
+            "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Pollo Chiquito", 
+        categoria: "pollo", 
+        precio: "economico", 
+        distancia: 3, 
+        calificacion: 2.9, 
+        detalle: "🍗 ⭐ 2.9 | 📍 3 km | Económico • Pollo Frito", 
+        fotos: [
+            "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Tio Pollo", 
+        categoria: "pollo", 
+        precio: "economico", 
+        distancia: 1, 
+        calificacion: 3.8, 
+        detalle: "🍗 ⭐ 3.8 | 📍 1 km | Económico • Pollo Frito", 
+        fotos: [
+            "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Pollo Supremo", 
+        categoria: "pollo", 
+        precio: "premiun", 
+        distancia: 3, 
+        calificacion: 4.3, 
+        detalle: "🍗 ⭐ 4.3 | 📍 3 km | Premium • Pollo Rostizado", 
+        fotos: [
+            "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Campo Y Brasa", 
+        categoria: "pollo", 
+        precio: "moderado", 
+        distancia: 3, 
+        calificacion: 4.4, 
+        detalle: "🍗 ⭐ 4.4 | 📍 3 km | Moderado • Pollo Rostizado Tradicional", 
+        fotos: [
+            "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+
+    // --- BEBIDAS Y CAFÉ ---
+    { 
+        nombre: "Boba Boom", 
+        categoria: "cafe", 
+        precio: "moderado", 
+        distancia: 4, 
+        calificacion: 4.0, 
+        detalle: "🍹 ⭐ 4.0 | 📍 4 km | Moderado • Boba Tea y Bebidas", 
+        fotos: [
+            "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Moonlight Coffee", 
+        categoria: "cafe", 
+        precio: "premiun", 
+        distancia: 2, 
+        calificacion: 4.3, 
+        detalle: "☕ ⭐ 4.3 | 📍 2 km | Premium • Café y Repostería", 
+        fotos: [
+            "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Coffee Station", 
+        categoria: "cafe", 
+        precio: "moderado", 
+        distancia: 1, 
+        calificacion: 4.5, 
+        detalle: "☕ ⭐ 4.5 | 📍 1 km | Moderado • Café Gourmet", 
+        fotos: [
+            "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80"
+        ] 
+    },
+    { 
+        nombre: "Espresso Vita", 
+        categoria: "cafe", 
+        precio: "moderado", 
+        distancia: 3, 
+        calificacion: 5.0, 
+        detalle: "☕ ⭐ 5.0 | 📍 3 km | Moderado • Café de Especialidad", 
+        fotos: [
+            "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80"
+        ] 
+    }
+];
+
+        let currentIndex = 0;
+        let currentPhotoIndex = 0;
+
+        const foodCard = document.getElementById('foodCard');
+        const cardImagen = document.getElementById('cardImagen');
+        const cardNombre = document.getElementById('cardNombre');
+        const cardDetalle = document.getElementById('cardDetalle');
+        const indicadoresFotos = document.getElementById('indicadoresFotos');
+        const btnLike = document.getElementById('btnLike');
+        const btnDislike = document.getElementById('btnDislike');
+        const btnSuperlike = document.getElementById('btnSuperlike');
+        const matchPopup = document.getElementById('matchPopup');
+        const btnCerrarMatch = document.getElementById('btnCerrarMatch');
+
+        function cargarLocal() {
+            if (currentIndex >= localesComida.length) {
+                currentIndex = 0; 
+            }
+            const local = localesComida[currentIndex];
+            cardNombre.textContent = local.nombre;
+            cardDetalle.textContent = local.detalle;
+            currentPhotoIndex = 0;
+            actualizarFoto(local);
+        }
+
+        function actualizarFoto(local) {
+            cardImagen.src = local.fotos[currentPhotoIndex] || local.fotos[0];
+            
+            indicadoresFotos.innerHTML = '';
+            local.fotos.forEach((_, idx) => {
+                const barra = document.createElement('div');
+                barra.classList.add('indicador-barra');
+                if (idx === currentPhotoIndex) {
+                    barra.classList.add('active');
+                }
+                indicadoresFotos.appendChild(barra);
+            });
+        }
+
+        foodCard.addEventListener('click', () => {
+            const local = localesComida[currentIndex];
+            if (local.fotos.length > 1) {
+                currentPhotoIndex = (currentPhotoIndex + 1) % local.fotos.length;
+                actualizarFoto(local);
+            }
+        });
+
+        function hacerSwipe(claseAnimacion) {
+            foodCard.classList.add(claseAnimacion);
+            
+            setTimeout(() => {
+                if (claseAnimacion === 'swipe-right') {
+                    matchPopup.classList.add('show');
+                } else {
+                    siguienteTarjeta();
+                }
+            }, 300);
+        }
+
+        function siguienteTarjeta() {
+            foodCard.classList.remove('swipe-left', 'swipe-right');
+            currentIndex++;
+            cargarLocal();
+        }
+
+        btnLike.addEventListener('click', () => hacerSwipe('swipe-right'));
+        btnSuperlike.addEventListener('click', () => hacerSwipe('swipe-right'));
+        btnDislike.addEventListener('click', () => hacerSwipe('swipe-left'));
+
+        btnCerrarMatch.addEventListener('click', () => {
+            matchPopup.classList.remove('show');
+            siguienteTarjeta();
+        });
+
+        cargarLocal();
+    </script>
+</body>
+</html>
