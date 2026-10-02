@@ -6,12 +6,47 @@ body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; paddi
 .nav-menu a { color: whitesmoke; margin: 0 15px; text-decoration: none; font-weight: bold;  font-size: 14px; text-shadow: black; padding: 0.1px 11px} 
 nav a:hover { color: #5856D6;  text-decoration: underline;}
 section {text-align: center; padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 8px; }
-  /* USO CELULAR */
-@media (max-width: 768px) {
-  /* Estilos específicos para pantallas de celular */
-  body {
-    font-size: 14px;
-  }
+/* 1. Reset básico para evitar desbordamientos en móviles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    overflow-x: hidden; /* Evita que la pantalla se mueva hacia los lados */
+}
+
+/* 2. Ajuste responsivo de imágenes y videos */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 3. Estilos específicos para la cabecera e imágenes/secciones */
+.main-header {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+}
+
+/* 4. Media Query para pantallas pequeñas (Teléfonos) */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .main-header {
+        padding: 10px;
+    }
+
+    /* Si tienes contenedores flexibles o en filas, cámbiolos a columnas */
+    .contenedor, .menu, nav {
+        flex-direction: column;
+        width: 100%;
+    }
 }
 .intro-section {
     text-align: center;
