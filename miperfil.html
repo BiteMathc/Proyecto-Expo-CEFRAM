@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<header class="main-header">
+        <nav class="nav-menu">
+            <a href="index.html">Inicio</a>
+            <a href="2descubre.html">Descubrir</a>
+            <a href="explorar.html">Explorar</a>
+            <a href="miperfil.html">Mi Perfil</a>
+        </nav>
+        <div class="logo-container">
+            <img src="Logo-removebg-preview.png"Logo de BiteMatch">
+        </div>
+    </header>
+
+    <main class="flex justify-center items-start py-10 px-4 flex-grow">
+        <div class="w-full max-w-md space-y-6">
+            
+            <div class="flex items-center space-x-4 mb-2">
+                <label for="fotoPerfil" class="cursor-pointer text-center">
+                    <img id="avatar-imagen" src="avatar-default.png" alt="Foto de perfil" class="w-16 h-16 rounded-full object-cover shadow-lg">
+                    <span class="block text-xs text-blue-600 mt-1">Cambiar foto</span>
+                </label>
+                <input type="file" id="fotoPerfil" accept="image/*" class="hidden">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Mi Perfil</h1>
+                    <p class="text-gray-500 text-sm">Configuración de BiteMatch</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="mr-2">📝</span> Datos Personales
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                        <input type="text" id="nombre" class="input-field" placeholder="Tu nombre">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                        <input type="text" id="apellido" class="input-field" placeholder="Tu apellido">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Edad</label>
+                            <input type="number" id="edad" class="input-field" placeholder="00">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Comidas Favoritas</label>
+                        <textarea id="comidas" class="input-field" rows="2" placeholder="Ej: Pizza, Sushi, Tacos..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="mr-2">🥗</span> Filtros de salud
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 font-medium">Vegetariano</span>
+                        <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="veg" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer outline-none"/>
+                            <label for="veg" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                    </div>
+                                        
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 font-medium">Vegano</span>
+                        <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="vegan" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer outline-none"/>
+                            <label for="vegan" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón Guardar con () -->
+            <button onclick="guardarDatos()" class="w-full py-4 btn-gradient text-white font-bold rounded-2xl shadow-lg transform">
+                Guardar Información
+            </button>
+
+            <!-- Feedback de guardado -->
+            <p id="save-status" class="text-center text-sm font-medium text-green-500 hidden">¡Datos guardados con éxito! ✨</p>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p class="slogan">BiteMatch: Desliza. Antójate. Devora.</p>
+        <p class="copyright">&copy; CEFRAM 2026. TDS "B"</p>
+    </footer>
+
+    <script>
+        // Función para guardar datos en LocalStorage
+        function guardarDatos() {
+            const perfil = {
+                nombre: document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
+                edad: document.getElementById('edad').value,
+                comidas: document.getElementById('comidas').value,
+                veg: document.getElementById('veg').checked,
+                vegan: document.getElementById('vegan').checked
+            };
+
+            localStorage.setItem('bitematch_profile', JSON.stringify(perfil));
+            
+            // Mostrar mensaje de éxito
+            const status = document.getElementById('save-status');
+            status.classList.remove('hidden');
+            setTimeout(() => {
+                status.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Función para cargar datos al iniciar
+        function cargarDatos() {
+            const savedData = localStorage.getItem('bitematch_profile');
+            if (savedData) {
+                const perfil = JSON.parse(savedData);
+                document.getElementById('nombre').value = perfil.nombre || '';
+                document.getElementById('apellido').value = perfil.apellido || '';
+                document.getElementById('edad').value = perfil.edad || '';
+                document.getElementById('comidas').value = perfil.comidas || '';
+                document.getElementById('veg').checked = perfil.veg || false;
+                document.getElementById('vegan').checked = perfil.vegan || false;
+                
+            }
+
+            const avatarGuardado = localStorage.getItem('bitematch_avatar');
+            if (avatarGuardado) {
+                document.getElementById('avatar-imagen').src = avatarGuardado;
+            }
+        }
+
+        document.getElementById('fotoPerfil').addEventListener('change', function() {
+            const archivo = this.files[0];
+
+            if (archivo) {
+                const lector = new FileReader();
+
+                lector.onload = function(evento) {
+                    document.getElementById('avatar-imagen').src = evento.target.result;
+                    localStorage.setItem('bitematch_avatar', evento.target.result);
+                };
+
+                lector.readAsDataURL(archivo);
+            }
+        });
+
+        // Ejecutar carga al cargar la página
+        window.onload = cargarDatos;
+    </script>
+
+</body>
+</html>
