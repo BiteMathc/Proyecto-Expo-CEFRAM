@@ -550,10 +550,12 @@
             setTimeout(() => {
                 if (claseAnimacion === 'swipe-right') {
                     if (esSuperlike) {
+                        // Mensaje personalizado para la ESTRELLA ⭐
                         matchTitulo.textContent = "⭐ ¡SUPERLIKE! ⭐";
                         matchTexto.textContent = "¡Este plato te conquistó! Lo guardamos como uno de tus favoritos.";
                         matchEmoji.textContent = "🌟👑🍔✨";
                     } else {
+                        // Mensaje normal para el CORAZÓN ❤️
                         matchTitulo.textContent = "¡Es un BiteMatch! 👑";
                         matchTexto.textContent = "A tu estómago y a este lugar les gusta lo mismo.";
                         matchEmoji.textContent = "🍔🔥🍕";
