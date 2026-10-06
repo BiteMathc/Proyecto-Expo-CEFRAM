@@ -23,6 +23,22 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
         grid-template-columns: 1fr;
     }
 }
+/* Estilos para pantallas de celular */
+@media (max-width: 768px) {
+  nav, .nav, .navegacion, header ul, nav ul {
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center;    /* Centra los enlaces */
+    gap: 10px;              /* Espacio entre cada enlace */
+  }
+
+  nav a, header a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+  }
+}
 
 :root {
             --primary-red: #ff4b4b;
