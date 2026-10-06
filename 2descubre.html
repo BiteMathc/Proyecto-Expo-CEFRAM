@@ -54,15 +54,14 @@
                     
                 </button>
             </div>
-
-            <div class="match-popup" id="matchPopup">
-                <div class="match-content">
-                    <h2>¡Es un BiteMatch! 👑</h2>
-                    <p>A tu estómago y a este lugar les gusta lo mismo.</p>
-                    <div class="match-emoji">🍔🔥🍕</div>
-                    <button class="btn-continuar" id="btnCerrarMatch">Seguir buscando</button>
-                </div>
-            </div>
+<div class="match-popup" id="matchPopup">
+    <div class="match-content">
+        <h2 id="matchTitulo">¡Es un BiteMatch! 👑</h2>
+        <p id="matchTexto">A tu estómago y a este lugar les gusta lo mismo.</p>
+        <div class="match-emoji" id="matchEmoji">🍔🔥🍕</div>
+        <button class="btn-continuar" id="btnCerrarMatch">Seguir buscando</button>
+    </div>
+</div>
         </section>
     </main>
 
@@ -540,11 +539,24 @@
             }
         });
 
-        function hacerSwipe(claseAnimacion) {
+        const matchTitulo = document.getElementById('matchTitulo');
+        const matchTexto = document.getElementById('matchTexto');
+        const matchEmoji = document.getElementById('matchEmoji');
+
+        function hacerSwipe(claseAnimacion, esSuperlike = false) {
             foodCard.classList.add(claseAnimacion);
             
             setTimeout(() => {
                 if (claseAnimacion === 'swipe-right') {
+                    if (esSuperlike) {
+                        matchTitulo.textContent = "⭐ ¡SUPERLIKE! ⭐";
+                        matchTexto.textContent = "¡Este plato te conquistó! Lo guardamos como uno de tus favoritos.";
+                        matchEmoji.textContent = "🌟👑🍔✨";
+                    } else {
+                        matchTitulo.textContent = "¡Es un BiteMatch! 👑";
+                        matchTexto.textContent = "A tu estómago y a este lugar les gusta lo mismo.";
+                        matchEmoji.textContent = "🍔🔥🍕";
+                    }
                     matchPopup.classList.add('show');
                 } else {
                     siguienteTarjeta();
@@ -556,6 +568,18 @@
             foodCard.classList.remove('swipe-left', 'swipe-right');
             currentIndex++;
             cargarLocal();
+        }
+
+        btnLike.addEventListener('click', () => hacerSwipe('swipe-right', false));
+        btnSuperlike.addEventListener('click', () => hacerSwipe('swipe-right', true));
+        btnDislike.addEventListener('click', () => hacerSwipe('swipe-left'));
+
+        btnCerrarMatch.addEventListener('click', () => {
+            matchPopup.classList.remove('show');
+            siguienteTarjeta();
+        });
+
+        cargarLocal();
         }
 
         btnLike.addEventListener('click', () => hacerSwipe('swipe-right'));
