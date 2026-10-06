@@ -6,38 +6,36 @@ body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; paddi
 .nav-menu a { color: whitesmoke; margin: 0 15px; text-decoration: none; font-weight: bold;  font-size: 14px; text-shadow: black; padding: 0.1px 11px} 
 nav a:hover { color: #5856D6;  text-decoration: underline;}
 section {text-align: center; padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 8px; }
- /* REGLAS ESPECÍFICAS PARA CELULAR (Al final del archivo) */
-@media (max-width: 600px) {
-    .main-header {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .nav-menu {
-        justify-content: center;
-    }
-    .filtros-avanzados {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .grid-herramientas {
-        grid-template-columns: 1fr;
-    }
-}
-/* Estilos para pantallas de celular */
+ /* REGLAS ESPECÍFICAS PARA CELULAR */
 @media (max-width: 768px) {
-  nav, .nav, .navegacion, header ul, nav ul {
-    display: flex;
-    flex-direction: column; /* Apila los elementos verticalmente */
-    align-items: center;    /* Centra los enlaces */
-    gap: 10px;              /* Espacio entre cada enlace */
-  }
+    .main-header {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
 
-  nav a, header a {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 8px 0;
-  }
+    .nav-menu {
+        flex-direction: column !important; /* Apila Inicio, Descubrir, Explorar y Mi Perfil en vertical */
+        align-items: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+    }
+
+    .nav-menu a {
+        display: block !important;
+        margin: 4px 0 !important;
+        padding: 8px 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .filtros-avanzados {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .grid-herramientas {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 :root {
