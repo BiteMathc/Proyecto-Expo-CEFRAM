@@ -21,16 +21,16 @@
         </div>
     </header>
    <main class="favoritos-container">
-        <div class="encabezado">
-            <h2>Mis lugares guardados</h2>
-            <span id="contador" class="contador">0</span>
-        </div>
-        <p id="mensajeVacio">Aún no has guardado ningún lugar.</p>
-        <section id="listaFavoritos" aria-live="polite"></section>
-        <div class="acciones">
-            <button type="button" id="limpiar">Limpiar registro</button>
-        </div>
-    </main>
+    <div class="encabezado">
+        <h2>Mis lugares guardados</h2>
+        <span id="contador" class="contador">0</span>
+    </div>
+    <p id="mensajeVacio">Aún no has guardado ningún lugar.</p>
+    <section id="listaFavoritos" aria-live="polite"></section>
+    <div class="acciones">
+        <button type="button" id="limpiar">Limpiar registro</button>
+    </div>
+</main>
     <script>
         const CLAVE_FAVORITOS = 'bitematch_favoritos';
         const lista = document.getElementById('listaFavoritos');
