@@ -547,4 +547,152 @@ button:hover {
     width: 100%;
 }
 section { text-align: center; padding: 20px; max-width: 800px; background: white; }
+/* ==========================================================================
+   ESTILOS PARA LA SECCIÓN "FAVORITOS" (ESTILO PESTAÑA / TARJETA)
+   ========================================================================== */
 
+/* Tarjeta / Pestaña blanca central */
+.favoritos-container {
+    background: #ffffff;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+/* Encabezado dentro de la tarjeta */
+.favoritos-container .encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.favoritos-container .encabezado h2 {
+    margin: 0;
+    color: #1A2536;
+    font-size: 1.8rem;
+}
+
+/* Contador con el color de tu tema */
+.favoritos-container .contador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    padding: 0 8px;
+    border-radius: 50%;
+    background: #ff4b4b;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.favoritos-container #mensajeVacio {
+    color: #64748b;
+    font-size: 1rem;
+    margin: 20px 0;
+}
+
+.favoritos-container #listaFavoritos {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+
+/* Tarjetas individuales de los lugares */
+.favoritos-container .registro {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.favoritos-container .registro:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.favoritos-container .registro img {
+    width: 70px;
+    height: 70px;
+    flex: 0 0 70px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #f1f5f9;
+}
+
+.favoritos-container .datos {
+    min-width: 0;
+    flex: 1;
+}
+
+.favoritos-container .datos h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1A2536;
+}
+
+.favoritos-container .datos p {
+    margin: 0.25rem 0 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.favoritos-container .datos small {
+    display: block;
+    margin-top: 0.35rem;
+    color: #5856D6;
+    font-weight: 600;
+}
+
+/* Botón de basurero para eliminar */
+.favoritos-container .eliminar {
+    border: 0;
+    background: transparent;
+    color: #FF3B30;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.favoritos-container .eliminar:hover {
+    background: #fff0f0;
+}
+
+/* Contenedor de acciones inferiores */
+.favoritos-container .acciones {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1.5rem;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+@media (max-width: 480px) {
+    .favoritos-container {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .favoritos-container .registro img {
+        width: 55px;
+        height: 55px;
+        flex-basis: 55px;
+    }
+}
