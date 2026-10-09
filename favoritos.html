@@ -40,34 +40,33 @@
         function leerFavoritos() {
             try { return JSON.parse(localStorage.getItem(CLAVE_FAVORITOS) || '[]'); }
             catch { return []; }
-        }
+        }function renderizar() {
+    const favoritos = leerFavoritos();
+    contador.textContent = favoritos.length;
+    mensajeVacio.hidden = favoritos.length > 0;
+    
+    lista.innerHTML = favoritos.map((favorito) => `
+        <article class="registro-tarjeta">
+            <img src="${favorito.foto}" alt="${favorito.nombre}">
+            <div class="datos-tarjeta">
+                <h3>${favorito.nombre}</h3>
+                <p>${favorito.detalle}</p>
+                <small>Guardado el ${favorito.fecha}</small>
+            </div>
+            <button class="eliminar" type="button" data-nombre="${favorito.nombre}" aria-label="Eliminar ${favorito.nombre}">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </article>
+    `).join('');
 
-        function renderizar() {
-            const favoritos = leerFavoritos();
-            contador.textContent = favoritos.length;
-            mensajeVacio.hidden = favoritos.length > 0;
-            lista.innerHTML = favoritos.map((favorito) => `
-                <article class="registro">
-                    <img src="${favorito.foto}" alt="${favorito.nombre}">
-                    <div class="datos">
-                        <h3>${favorito.nombre}</h3>
-                        <p>${favorito.detalle}</p>
-                        <small>Guardado el ${favorito.fecha}</small>
-                    </div>
-                    <button class="eliminar" type="button" data-nombre="${favorito.nombre}" aria-label="Eliminar ${favorito.nombre}">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </article>
-            `).join('');
-
-            lista.querySelectorAll('.eliminar').forEach((boton) => {
-                boton.addEventListener('click', () => {
-                    const nuevos = leerFavoritos().filter((favorito) => favorito.nombre !== boton.dataset.nombre);
-                    localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(nuevos));
-                    renderizar();
-                });
-            });
-        }
+    lista.querySelectorAll('.eliminar').forEach((boton) => {
+        boton.addEventListener('click', () => {
+            const nuevos = leerFavoritos().filter((favorito) => favorito.nombre !== boton.dataset.nombre);
+            localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(nuevos));
+            renderizar();
+        });
+    });
+}
 
         document.getElementById('limpiar').addEventListener('click', () => {
             if (confirm('¿Quieres borrar todo el registro de lugares guardados?')) {
