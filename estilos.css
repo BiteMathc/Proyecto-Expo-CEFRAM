@@ -8,36 +8,83 @@ nav a:hover { color: #5856D6;  text-decoration: underline;}
 section {text-align: center; padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 8px; }
 /* REGLAS ESPECÍFICAS PARA CELULAR (CORREGIDO) */
 @media (max-width: 768px) {
+    /* Ajustes del Encabezado y Menú */
     .main-header {
         flex-direction: column !important;
         gap: 10px !important;
+        padding: 10px 15px !important;
     }
 
     .nav-menu {
-        flex-direction: column !important; /* Apila Inicio, Descubrir, Explorar y Mi Perfil en vertical */
-        align-items: center !important;
-        gap: 12px !important;
-        width: 100% !important;
+        flex-direction: row !important; /* Mantiene los links horizontalmente o ajustados */
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 8px 12px !important;
+        padding: 0 !important;
     }
 
     .nav-menu a {
-        display: block !important;
-        margin: 4px 0 !important;
-        padding: 8px 0 !important;
+        display: inline-block !important;
+        margin: 0 !important;
+        padding: 5px 8px !important;
+        font-size: 13px !important;
+        width: auto !important;
+    }
+
+    .logo-container img {
+        max-height: 60px !important; /* Hace el logo más pequeño en celular */
+        margin: 0 auto;
+    }
+
+    /* Ajustes para la tarjeta contenedor de Favoritos */
+    .favoritos-container {
+        width: 92% !important;
+        max-width: 100% !important;
+        margin: 15px auto !important;
+        padding: 20px 15px !important;
+        box-sizing: border-box !important;
+    }
+
+    .favoritos-container .encabezado h2 {
+        font-size: 1.3rem !important;
+    }
+
+    /* Evita que el registro de la pizza se salga de la tarjeta */
+    .favoritos-container .registro {
+        flex-direction: row !important;
+        align-items: center !important;
         width: 100% !important;
-        text-align: center !important;
+        max-width: 100% !important;
+        padding: 10px !important;
+        gap: 10px !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
 
-    .filtros-avanzados {
-        flex-direction: column !important;
-        align-items: stretch !important;
+    .favoritos-container .registro img {
+        width: 55px !important;
+        height: 55px !important;
+        flex: 0 0 55px !important;
     }
 
-    .grid-herramientas {
-        grid-template-columns: 1fr !important;
+    .favoritos-container .datos {
+        flex: 1 !important;
+        min-width: 0 !important; /* Permite que el texto largo se recorte y no empuje la caja */
+    }
+
+    .favoritos-container .datos h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .favoritos-container .datos p {
+        font-size: 0.78rem !important;
+        white-space: normal !important; /* Permite que el detalle de texto se ajuste a varias líneas si es necesario */
+    }
+
+    .favoritos-container .datos small {
+        font-size: 0.72rem !important;
     }
 }
-
 :root {
             --primary-red: #ff4b4b;
             --primary-purple: #6332c2;
