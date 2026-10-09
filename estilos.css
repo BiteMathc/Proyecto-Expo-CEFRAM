@@ -6,86 +6,110 @@ body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; paddi
 .nav-menu a { color: whitesmoke; margin: 0 15px; text-decoration: none; font-weight: bold;  font-size: 14px; text-shadow: black; padding: 0.1px 11px} 
 nav a:hover { color: #5856D6;  text-decoration: underline;}
 section {text-align: center; padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 8px; }
-/* REGLAS ESPECÍFICAS PARA CELULAR (CORREGIDO) */
+/* ==========================================
+   SOLUCIÓN DEFINITIVA FAVORITOS Y CELULAR
+   ========================================== */
+
+/* Contenedor principal en pantalla normal y celular */
+main.favoritos-container {
+    width: 90% !important;
+    max-width: 700px !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+#listaFavoritos {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
+}
+
+/* Tarjeta individual de cada restaurante */
+.registro-tarjeta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.registro-tarjeta img {
+    width: 60px !important;
+    height: 60px !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+    object-fit: cover !important;
+}
+
+.datos-tarjeta {
+    flex: 1 !important;
+    min-width: 0 !important; /* IMPORTANTE: evita que el texto rompa el ancho en celular */
+}
+
+.datos-tarjeta h3 {
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+    color: #1A2536 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.datos-tarjeta p {
+    margin: 4px 0 0 0 !important;
+    font-size: 0.8rem !important;
+    color: #64748b !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.datos-tarjeta small {
+    display: block !important;
+    margin-top: 4px !important;
+    font-size: 0.75rem !important;
+    color: #5856D6 !important;
+}
+
+/* Ajustes del menú para Celular */
 @media (max-width: 768px) {
-    /* Ajustes del Encabezado y Menú */
     .main-header {
         flex-direction: column !important;
-        gap: 10px !important;
-        padding: 10px 15px !important;
+        padding: 10px !important;
     }
 
     .nav-menu {
-        flex-direction: row !important; /* Mantiene los links horizontalmente o ajustados */
+        flex-direction: row !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
-        gap: 8px 12px !important;
-        padding: 0 !important;
+        gap: 8px !important;
     }
 
     .nav-menu a {
         display: inline-block !important;
         margin: 0 !important;
-        padding: 5px 8px !important;
+        padding: 4px 8px !important;
         font-size: 13px !important;
         width: auto !important;
     }
 
     .logo-container img {
-        max-height: 60px !important; /* Hace el logo más pequeño en celular */
-        margin: 0 auto;
+        max-height: 50px !important;
     }
-
-    /* Ajustes para la tarjeta contenedor de Favoritos */
-    .favoritos-container {
-        width: 92% !important;
-        max-width: 100% !important;
-        margin: 15px auto !important;
-        padding: 20px 15px !important;
-        box-sizing: border-box !important;
-    }
-
-    .favoritos-container .encabezado h2 {
-        font-size: 1.3rem !important;
-    }
-
-    /* Evita que el registro de la pizza se salga de la tarjeta */
-    .favoritos-container .registro {
-        flex-direction: row !important;
-        align-items: center !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 10px !important;
-        gap: 10px !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    .favoritos-container .registro img {
-        width: 55px !important;
-        height: 55px !important;
-        flex: 0 0 55px !important;
-    }
-
-    .favoritos-container .datos {
-        flex: 1 !important;
-        min-width: 0 !important; /* Permite que el texto largo se recorte y no empuje la caja */
-    }
-
-    .favoritos-container .datos h3 {
-        font-size: 0.95rem !important;
-    }
-
-    .favoritos-container .datos p {
-        font-size: 0.78rem !important;
-        white-space: normal !important; /* Permite que el detalle de texto se ajuste a varias líneas si es necesario */
-    }
-
-    .favoritos-container .datos small {
-        font-size: 0.72rem !important;
-    }
-}
-:root {
+}:root {
             --primary-red: #ff4b4b;
             --primary-purple: #6332c2;
             --gradient-main:#1A2536;
