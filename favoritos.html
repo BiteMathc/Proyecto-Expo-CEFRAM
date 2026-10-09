@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiteMatch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../estilo/estilos.css">
+</head>
+<body>
+    <header class="main-header">
+         <nav class="nav-menu">
+            <a href="index.html">Inicio</a>
+            <a href="2descubre.html">Descubrir</a>
+            <a href="favoritos.html">Favoritos</a>
+            <a href="explorar.html">Explorar</a> 
+            <a href="miperfil.html">Mi Perfil</a>
+        </nav>
+        <div class="logo-container">
+            <img src="../imagen/Logo-removebg-preview.png" alt="Logo de BiteMatch">
+        </div>
+    </header>
+   <main class="favoritos-container">
+        <div class="encabezado">
+            <h2>Mis lugares guardados</h2>
+            <span id="contador" class="contador">0</span>
+        </div>
+        <p id="mensajeVacio">Aún no has guardado ningún lugar.</p>
+        <section id="listaFavoritos" aria-live="polite"></section>
+        <div class="acciones">
+            <button type="button" id="limpiar">Limpiar registro</button>
+        </div>
+    </main>
+    <script>
+        const CLAVE_FAVORITOS = 'bitematch_favoritos';
+        const lista = document.getElementById('listaFavoritos');
+        const contador = document.getElementById('contador');
+        const mensajeVacio = document.getElementById('mensajeVacio');
+
+        function leerFavoritos() {
+            try { return JSON.parse(localStorage.getItem(CLAVE_FAVORITOS) || '[]'); }
+            catch { return []; }
+        }
+
+        function renderizar() {
+            const favoritos = leerFavoritos();
+            contador.textContent = favoritos.length;
+            mensajeVacio.hidden = favoritos.length > 0;
+            lista.innerHTML = favoritos.map((favorito) => `
+                <article class="registro">
+                    <img src="${favorito.foto}" alt="${favorito.nombre}">
+                    <div class="datos">
+                        <h3>${favorito.nombre}</h3>
+                        <p>${favorito.detalle}</p>
+                        <small>Guardado el ${favorito.fecha}</small>
+                    </div>
+                    <button class="eliminar" type="button" data-nombre="${favorito.nombre}" aria-label="Eliminar ${favorito.nombre}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </article>
+            `).join('');
+
+            lista.querySelectorAll('.eliminar').forEach((boton) => {
+                boton.addEventListener('click', () => {
+                    const nuevos = leerFavoritos().filter((favorito) => favorito.nombre !== boton.dataset.nombre);
+                    localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(nuevos));
+                    renderizar();
+                });
+            });
+        }
+
+        document.getElementById('limpiar').addEventListener('click', () => {
+            if (confirm('¿Quieres borrar todo el registro de lugares guardados?')) {
+                localStorage.removeItem(CLAVE_FAVORITOS);
+                renderizar();
+            }
+        });
+
+        renderizar();
+        window.addEventListener('storage', renderizar);
+    </script>
+</body>
+</html>
