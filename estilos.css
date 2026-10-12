@@ -1,8 +1,8 @@
 @font-face { font-family : "Jupiteroid"; src: url(jupiteroid/Jupiteroid-Bold.ttf); font-weight: bold;}
 body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; padding: 0; background: #D3C4F8; background-attachment: fixed; align-items: center; color: #333333; }
-.main-header { background:#EEF2F7; color: #EEF2F7; padding: 1rem; align-items: center; text-align: center; display: flex; justify-content: space-between; padding: 8px 5px;  border-bottom: 1px solid #e0e0e0;}
+.main-header { background:#121826; color: #121826; padding: 1rem; align-items: center; text-align: center; display: flex; justify-content: space-between; padding: 8px 5px;  border-bottom: 1px solid #e0e0e0;}
 .logo-container img { max-height: 95px; width: auto; display: block;}
-.nav-menu { background:#EEF2F7; padding: 5px 10px; text-align: center; display: flex; gap: 12px; }
+.nav-menu { background:#121826; padding: 5px 10px; text-align: center; display: flex; gap: 12px; }
 .nav-menu a { color: whitesmoke; margin: 0 15px; text-decoration: none; font-weight: bold;  font-size: 14px; text-shadow: black; padding: 0.1px 11px} 
 nav a:hover { color: #5856D6;  text-decoration: underline;}
 section {text-align: center; padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 8px; }
@@ -24,65 +24,85 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
 }
 
 /* REGLAS ESPECÍFICAS PARA CELULARES (Menú Desplegable) */
+
 @media (max-width: 768px) {
     .main-header {
+        background-color: #121826 !important; 
         position: relative;
+        display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
-        padding: 10px 15px !important;
+        padding: 12px 20px !important;
+        border-bottom: 2px solid #5856D6 !important;
     }
-
-    /* Mostrar botón de 3 puntos en móviles */
     .menu-toggle {
         display: block !important;
+        color: #ffffff !important;
+        background: #5856D6 !important; /* Fondo morado para que resalte súper bien */
+        font-size: 20px !important;
+        padding: 8px 14px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 10px rgba(88, 86, 214, 0.4);
     }
 
-    /* Menú vertical oculto por defecto */
+    /* Menú vertical flotante desplegable */
     .nav-menu {
-        display: none !important; /* Se oculta hasta hacer clic */
+        display: none !important; 
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: #1A2536;
+        background-color: #1A2536 !important;
         flex-direction: column !important;
         align-items: stretch !important;
-        gap: 5px !important;
+        gap: 8px !important;
         padding: 15px !important;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         border-bottom: 3px solid #5856D6;
-        z-index: 100;
+        z-index: 1000;
     }
 
-    /* Clase activa que muestra el menú desplegado */
     .nav-menu.active {
         display: flex !important;
     }
 
-    /* Estilo de las opciones apiladas estilo la imagen enviada */
     .nav-menu a {
         display: flex !important;
         align-items: center;
         gap: 12px;
         color: #f1f5f9 !important;
         padding: 12px 16px !important;
-        margin: 2px 0 !important;
+        margin: 0 !important;
         width: auto !important;
-        text-align: left !important;
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.05);
         font-size: 15px;
-        transition: all 0.2s ease;
     }
 
-    .nav-menu a:hover, 
-    .nav-menu a:active {
-        background: #5856D6 !important;
-        color: white !important;
-        padding-left: 20px !important;
+    /* SOLUCIÓN AL DESAJUSTE DE LAS TARJETAS EN EL CELULAR */
+    .favoritos-container, 
+    .carrito-container,
+    .tinder-section {
+        max-width: 92% !important;
+        margin: 15px auto !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+    }
+
+    .favoritos-container .registro,
+    .carrito-container .registro {
+        flex-wrap: wrap !important; /* Si no cabe en una fila, se acomoda abajo */
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden;
+    }
+
+    .favoritos-container .datos,
+    .carrito-container .datos {
+        min-width: 0 !important;
+        flex: 1 1 150px !important;
     }
 }
-
 :root {
             --primary-red: #ff4b4b;
             --primary-purple: #6332c2;
@@ -219,7 +239,7 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
     color: #6228d7;
 }
 .main-footer {
-    background-color:#EEF2F7; 
+    background-color:#121826; 
     text-align: center;
     padding: 15px 20px;
     margin-top: 40px;
@@ -228,13 +248,13 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
 .main-footer .slogan {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #1a2536;
+    color:#EEF2F76;
     letter-spacing: 1px;
     margin-bottom: 5px;
 }
 .main-footer .copyright {
     font-size: 0.85rem;
-    color: #1a2536;
+    color: #EEF2F7;
 }
 
 /* 2.SECCIÓN : BÚSQUEDA, FILTROS Y BURBUJAS*/
