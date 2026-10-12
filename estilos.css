@@ -1,115 +1,89 @@
 @font-face { font-family : "Jupiteroid"; src: url(jupiteroid/Jupiteroid-Bold.ttf); font-weight: bold;}
 body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; padding: 0; background: #D3C4F8; background-attachment: fixed; align-items: center; color: #333333; }
-.main-header { background:#1A2536; color: #1A2536; padding: 1rem; align-items: center; text-align: center; display: flex; justify-content: space-between; padding: 8px 5px;  border-bottom: 1px solid #e0e0e0;}
-.logo-container img { max-height: 100px; width: auto; display: block;}
-.nav-menu { background:#1A2536; padding: 5px 10px; text-align: center; display: flex; gap: 12px; }
+.main-header { background:#EEF2F7; color: #EEF2F7; padding: 1rem; align-items: center; text-align: center; display: flex; justify-content: space-between; padding: 8px 5px;  border-bottom: 1px solid #e0e0e0;}
+.logo-container img { max-height: 95px; width: auto; display: block;}
+.nav-menu { background:#EEF2F7; padding: 5px 10px; text-align: center; display: flex; gap: 12px; }
 .nav-menu a { color: whitesmoke; margin: 0 15px; text-decoration: none; font-weight: bold;  font-size: 14px; text-shadow: black; padding: 0.1px 11px} 
 nav a:hover { color: #5856D6;  text-decoration: underline;}
 section {text-align: center; padding: 20px; max-width: 800px; margin: auto; background: white; margin-top: 20px; border-radius: 8px; }
-/* ==========================================
-   FAVORITOS Y CELULAR
-   ========================================== */
 
-/* Contenedor principal en pantalla normal y celular */
-main.favoritos-container {
-    width: 90% !important;
-    max-width: 700px !important;
-    margin: 20px auto !important;
-    padding: 20px !important;
-    background: #ffffff !important;
-    border-radius: 16px !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s;
 }
 
-#listaFavoritos {
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    box-sizing: border-box !important;
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Tarjeta individual de cada restaurante */
-.registro-tarjeta {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 12px !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 12px !important;
-    background: #ffffff !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-}
-
-.registro-tarjeta img {
-    width: 60px !important;
-    height: 60px !important;
-    flex-shrink: 0 !important;
-    border-radius: 8px !important;
-    object-fit: cover !important;
-}
-
-.datos-tarjeta {
-    flex: 1 !important;
-    min-width: 0 !important; /* IMPORTANTE: evita que el texto rompa el ancho en celular */
-}
-
-.datos-tarjeta h3 {
-    margin: 0 !important;
-    font-size: 0.95rem !important;
-    color: #1A2536 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.datos-tarjeta p {
-    margin: 4px 0 0 0 !important;
-    font-size: 0.8rem !important;
-    color: #64748b !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.datos-tarjeta small {
-    display: block !important;
-    margin-top: 4px !important;
-    font-size: 0.75rem !important;
-    color: #5856D6 !important;
-}
-
-/* Ajustes del menú para Celular */
+/* REGLAS ESPECÍFICAS PARA CELULARES (Menú Desplegable) */
 @media (max-width: 768px) {
     .main-header {
-        flex-direction: column !important;
-        padding: 10px !important;
+        position: relative;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 10px 15px !important;
     }
 
+    /* Mostrar botón de 3 puntos en móviles */
+    .menu-toggle {
+        display: block !important;
+    }
+
+    /* Menú vertical oculto por defecto */
     .nav-menu {
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 8px !important;
+        display: none !important; /* Se oculta hasta hacer clic */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #1A2536;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 5px !important;
+        padding: 15px !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        border-bottom: 3px solid #5856D6;
+        z-index: 100;
     }
 
+    /* Clase activa que muestra el menú desplegado */
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    /* Estilo de las opciones apiladas estilo la imagen enviada */
     .nav-menu a {
-        display: inline-block !important;
-        margin: 0 !important;
-        padding: 4px 8px !important;
-        font-size: 13px !important;
+        display: flex !important;
+        align-items: center;
+        gap: 12px;
+        color: #f1f5f9 !important;
+        padding: 12px 16px !important;
+        margin: 2px 0 !important;
         width: auto !important;
+        text-align: left !important;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 15px;
+        transition: all 0.2s ease;
     }
 
-    .logo-container img {
-        max-height: 50px !important;
+    .nav-menu a:hover, 
+    .nav-menu a:active {
+        background: #5856D6 !important;
+        color: white !important;
+        padding-left: 20px !important;
     }
-}:root {
+}
+
+:root {
             --primary-red: #ff4b4b;
             --primary-purple: #6332c2;
             --gradient-main:#1A2536;
@@ -245,7 +219,7 @@ main.favoritos-container {
     color: #6228d7;
 }
 .main-footer {
-    background-color:#1a2536; 
+    background-color:#EEF2F7; 
     text-align: center;
     padding: 15px 20px;
     margin-top: 40px;
@@ -254,13 +228,13 @@ main.favoritos-container {
 .main-footer .slogan {
     font-size: 1.1rem;
     font-weight: bold;
-    color: white;
+    color: #1a2536;
     letter-spacing: 1px;
     margin-bottom: 5px;
 }
 .main-footer .copyright {
     font-size: 0.85rem;
-    color: #777;
+    color: #1a2536;
 }
 
 /* 2.SECCIÓN : BÚSQUEDA, FILTROS Y BURBUJAS*/
@@ -547,6 +521,7 @@ button:hover {
     width: 100%;
 }
 section { text-align: center; padding: 20px; max-width: 800px; background: white; }
+
 /* ==========================================================================
    ESTILOS PARA LA SECCIÓN "FAVORITOS" (ESTILO PESTAÑA / TARJETA)
    ========================================================================== */
@@ -695,4 +670,243 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
         height: 55px;
         flex-basis: 55px;
     }
+}
+/* ==========================================================================
+   ESTILO MODERNO TIPO APP DE DELIVERY (PedidosYa / Temu) PARA EL CARRITO
+   ========================================================================== */
+
+.carrito-container {
+    background: #f8fafc;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(26, 37, 54, 0.08);
+    border: 1px solid #e2e8f0;
+    text-align: left;
+    font-family: "Jupiteroid", sans-serif;
+}
+
+/* Encabezado limpio con estilo app */
+.carrito-container .encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.carrito-container .encabezado h2 {
+    margin: 0;
+    color: #1A2536;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+/* Contador estilo badge moderno */
+.carrito-container .contador {
+    background: #FF3B30;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(255, 59, 48, 0.25);
+}
+
+/* Mensaje de carrito vacío */
+.carrito-container #mensajeVacio {
+    color: #64748b;
+    font-size: 1rem;
+    text-align: center;
+    margin: 40px 0;
+}
+
+/* Lista de productos tipo "item de pedido" */
+.carrito-container #listaFavoritos {
+    display: grid;
+    gap: 12px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Tarjeta de cada producto individual */
+.carrito-container .registro {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease;
+}
+
+.carrito-container .registro:hover {
+    transform: translateY(-2px);
+    border-color: #5856D6;
+}
+
+/* Imagen cuadrada redondeada estilo app */
+.carrito-container .registro img {
+    width: 65px;
+    height: 65px;
+    flex: 0 0 65px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #f1f5f9;
+}
+
+/* Textos organizados */
+.carrito-container .datos {
+    flex: 1;
+    min-width: 0;
+}
+
+.carrito-container .datos h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.carrito-container .datos p {
+    margin: 2px 0;
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.carrito-container .datos small {
+    display: inline-block;
+    color: #16a34a;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+/* Botón de eliminar (Basurero minimalista) */
+.carrito-container .eliminar {
+    background: #fff5f5;
+    border: none;
+    color: #FF3B30;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.carrito-container .eliminar:hover {
+    background: #FF3B30;
+    color: white;
+}
+
+/* Tarjeta resumen de totales estilo ticket de compra */
+.ticket-resumen {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 15px 20px;
+    margin-top: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.ticket-fila {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.ticket-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #1A2536;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 10px;
+    margin-top: 8px;
+}
+
+.ticket-total span:last-child {
+    color: #5856D6;
+}
+
+/* Botones de acción inferiores estilo app de pago */
+.carrito-container .acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.carrito-container .acciones button {
+    flex: 1;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+/* Botón de pagar verde brillante tipo PedidosYa */
+.btn-pagar-app {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    color: white !important;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+}
+
+.btn-pagar-app:hover {
+    opacity: 0.95;
+    transform: translateY(-2px);
+}
+
+/* Botón de vaciar secundario */
+.btn-vaciar-app {
+    background: #e2e8f0 !important;
+    color: #475569 !important;
+}
+
+.btn-vaciar-app:hover {
+    background: #cbd5e1 !important;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 480px) {
+    .carrito-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    .carrito-container .acciones {
+        flex-direction: column-reverse;
+    }
+}
+/* ==========================================================================
+   BOTONES DEL MENÚ 
+   ========================================================================== */
+
+.nav-menu a {
+    background: linear-gradient(135deg, #5856D6, #6332c2); /* Degradado morado base */
+    color: #ffffff !important;
+    padding: 8px 18px !important;
+    border-radius: 50px !important; /* Forma de píldora redondeada */
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(88, 86, 214, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none !important;
+}
+
+.nav-menu a:hover {
+    background: linear-gradient(135deg, #FF3B30, #e03126); /* Cambia a rojo al pasar el cursor */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 59, 48, 0.4);
 }

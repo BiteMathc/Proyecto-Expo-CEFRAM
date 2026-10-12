@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiteMatch</title>
+    <title>Descubrir - BiteMatch</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="../estilo/estilos.css">
 </head>
 <body>
-    <header class="main-header">
-        <nav class="nav-menu">
-            <a href="index.html">Inicio</a>
-            <a href="2descubre.html">Descubrir</a>
-            <a href="favoritos.html">Favoritos</a>
-            <a href="explorar.html">Explorar</a> 
-            <a href="miperfil.html">Mi Perfil</a>
-        </nav>
-         <div class="logo-container">
-            <img src="Logo-removebg-preview.png" alt="Logo de BiteMatch">
-        </div>
-    </header>
+  <header class="main-header">
+    <div class="logo-container">
+        <img src="../imagen/Logo-removebg-preview.png" alt="Logo de BiteMatch">
+    </div>
+
+    <!-- Botón de 3 puntos para celular -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+
+    <!-- Menú de navegación -->
+    <nav class="nav-menu" id="navMenu">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="2descubre.html"><i class="fa-solid fa-fire"></i> Descubrir</a>
+        <a href="favoritos.html"><i class="fa-solid fa-heart"></i> Favoritos</a>
+        <a href="explorar.html"><i class="fa-solid fa-compass"></i> Explorar</a> 
+        <a href="miperfil.html"><i class="fa-solid fa-user"></i> Mi Perfil</a>
+        <a href="carrito.html"><i class="fa-solid fa-cart-shopping"></i> Carrito </a>
+    </nav>
+</header>
     <section>
         <div class="intro-section">
             <h2>🔥 <span class="texto-gradiente">Descubre los Nuevos Sabores</span></h2>
@@ -49,14 +57,13 @@
                     <i class="fa-solid fa-heart"></i>
                 </button>
             </div>
-
-            <!-- MODAL DE MATCH CON IDS CORREGIDOS PARA CAMBIAR EL TEXTO -->
             <div class="match-popup" id="matchPopup">
                 <div class="match-content">
                     <h2 id="matchTitulo">¡Es un BiteMatch! 👑</h2>
                     <p id="matchTexto">A tu estómago y a este lugar les gusta lo mismo.</p>
                     <div class="match-emoji" id="matchEmoji">🍔🔥🍕</div>
-                    <button class="btn-continuar" id="btnCerrarMatch">Seguir buscando</button>
+                    <button class="btn-carrito-popup" id="btnAgregarCarritoModal">🛒 Agregar al Carrito</button>
+                    <button class="btn-continuar" id="btnCerrarMatch" style="margin-top: 10px;">Seguir buscando</button>
                 </div>
             </div>
         </section>
@@ -66,9 +73,9 @@
         <p class="slogan">BiteMatch: Desliza. Antójate. Devora.</p>
         <p class="copyright">&copy; CEFRAM 2026. TDS "B"</p>
     </footer>
-
    <script>
-        const CLAVE_FAVORITOS = 'bitematch_favoritos';
+       const CLAVE_FAVORITOS = 'bitematch_favoritos';
+        const CLAVE_CARRITO = 'bitematch_carrito';
 
         const localesComida = [
             // --- PIZZAS ---
@@ -491,8 +498,7 @@
                 ] 
             }
         ];
-
-        let currentIndex = 0;
+let currentIndex = 0;
         let currentPhotoIndex = 0;
 
         const foodCard = document.getElementById('foodCard');
@@ -505,8 +511,8 @@
         const btnSuperlike = document.getElementById('btnSuperlike');
         const matchPopup = document.getElementById('matchPopup');
         const btnCerrarMatch = document.getElementById('btnCerrarMatch');
+        const btnAgregarCarritoModal = document.getElementById('btnAgregarCarritoModal');
 
-        // Referencias del modal
         const matchTitulo = document.getElementById('matchTitulo');
         const matchTexto = document.getElementById('matchTexto');
         const matchEmoji = document.getElementById('matchEmoji');
@@ -524,7 +530,6 @@
 
         function actualizarFoto(local) {
             cardImagen.src = local.fotos[currentPhotoIndex] || local.fotos[0];
-            
             indicadoresFotos.innerHTML = '';
             local.fotos.forEach((_, idx) => {
                 const barra = document.createElement('div');
@@ -536,26 +541,60 @@
             });
         }
 
-        // --- FUNCIÓN PARA GUARDAR EN FAVORITOS ---
         function guardarEnFavoritos(local) {
             try {
                 const favoritos = JSON.parse(localStorage.getItem(CLAVE_FAVORITOS) || '[]');
-                const yaExiste = favoritos.some(item => item.nombre === local.nombre);
-
-                if (!yaExiste) {
-                    const nuevoFavorito = {
+                if (!favoritos.some(item => item.nombre === local.nombre)) {
+                    favoritos.push({
                         nombre: local.nombre,
                         detalle: local.detalle,
                         foto: local.fotos[0] || '',
                         fecha: new Date().toLocaleDateString('es-ES')
-                    };
-                    favoritos.push(nuevoFavorito);
+                    });
                     localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(favoritos));
                 }
             } catch (error) {
                 console.error("Error al guardar en favoritos:", error);
             }
         }
+function obtenerPrecioPorCategoria(tipoPrecio) {
+    switch (tipoPrecio) {
+        case 'economico': return 5.00;
+        case 'moderado': return 12.00;
+        case 'premiun':
+        case 'premium': return 25.00;
+        default: return 10.00;
+    }
+}
+      function agregarAlCarritoActual(local) {
+    try { 
+        const carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || '[]');
+        let itemExistente = carrito.find(item => item.nombre === local.nombre);
+
+        const precioCalculado = obtenerPrecioPorCategoria(local.precio);
+        const etiquetaPrecio = local.precio === 'economico' ? 'Económico (\$)' :
+                               local.precio === 'premiun' || local.precio === 'premium' ? 'Premium (\$$$)' :                                 'Moderado ($$)';
+
+        if (itemExistente) {
+            itemExistente.cantidad += 1;
+        } else {
+            carrito.push({
+                nombre: local.nombre,
+                detalle: local.detalle,
+                categoriaPrecio: etiquetaPrecio,
+                precio: precioCalculado,
+                foto: local.fotos[0] || '',
+                cantidad: 1
+            });
+        }
+
+        localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
+        alert(`¡${local.nombre} (${etiquetaPrecio}) se agregó al carrito! 🛒`);
+        
+    } catch (error) {
+        console.error("Error al agregar al carrito:", error);
+    }
+}
 
         foodCard.addEventListener('click', () => {
             const local = localesComida[currentIndex];
@@ -570,16 +609,14 @@
             
             setTimeout(() => {
                 if (claseAnimacion === 'swipe-right') {
-                    if (esSuperlike) {
-                        // Guardar automáticamente en LocalStorage para la página de Favoritos
-                        guardarEnFavoritos(localesComida[currentIndex]);
+                    const localActual = localesComida[currentIndex];
+                    guardarEnFavoritos(localActual);
 
-                        // Mensaje personalizado para la ESTRELLA ⭐
+                    if (esSuperlike) {
                         matchTitulo.textContent = "⭐ ¡SUPERLIKE! ⭐";
-                        matchTexto.textContent = "¡Este plato te conquistó! Lo guardamos como uno de tus favoritos.";
+                        matchTexto.textContent = "¡Este plato te conquistó! Ya puedes pedirlo.";
                         matchEmoji.textContent = "🌟👑🍔✨";
                     } else {
-                        // Mensaje normal para el CORAZÓN ❤️
                         matchTitulo.textContent = "¡Es un BiteMatch! 👑";
                         matchTexto.textContent = "A tu estómago y a este lugar les gusta lo mismo.";
                         matchEmoji.textContent = "🍔🔥🍕";
@@ -601,6 +638,13 @@
         btnSuperlike.addEventListener('click', () => hacerSwipe('swipe-right', true));
         btnDislike.addEventListener('click', () => hacerSwipe('swipe-left'));
 
+        // Acción al hacer clic en el botón del modal "Agregar al Carrito"
+        btnAgregarCarritoModal.addEventListener('click', () => {
+            agregarAlCarritoActual(localesComida[currentIndex]);
+            matchPopup.classList.remove('show');
+            siguienteTarjeta();
+        });
+
         btnCerrarMatch.addEventListener('click', () => {
             matchPopup.classList.remove('show');
             siguienteTarjeta();
@@ -608,5 +652,22 @@
 
         cargarLocal();
     </script>
+    <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar el menú si el usuario hace clic fuera de él
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    }
+</script>
 </body>
 </html>

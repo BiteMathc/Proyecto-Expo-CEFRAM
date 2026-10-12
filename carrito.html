@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - BiteMatch</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../estilo/estilos.css">
+</head>
+<body>
+ <header class="main-header">
+    <div class="logo-container">
+        <img src="../imagen/Logo-removebg-preview.png" alt="Logo de BiteMatch">
+    </div>
+
+    <!-- Botón de 3 puntos para celular -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+
+    <!-- Menú de navegación -->
+    <nav class="nav-menu" id="navMenu">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="2descubre.html"><i class="fa-solid fa-fire"></i> Descubrir</a>
+        <a href="favoritos.html"><i class="fa-solid fa-heart"></i> Favoritos</a>
+        <a href="explorar.html"><i class="fa-solid fa-compass"></i> Explorar</a> 
+        <a href="miperfil.html"><i class="fa-solid fa-user"></i> Mi Perfil</a>
+        <a href="carrito.html"><i class="fa-solid fa-cart-shopping"></i> Carrito </a>
+    </nav>
+</header>
+
+    <section>
+        <div class="intro-section">
+            <h2>🛒 <span class="texto-gradiente">Tu Carrito de Comidas</span></h2>
+            <p>Revisa tus platillos seleccionados y realiza tu pago</p>
+        </div>
+    </section>
+    <div class="carrito-container">
+    <div class="encabezado">
+        <h2>Tu Carrito</h2>
+        <div class="contador" id="contador-carrito">0</div>
+    </div>
+
+    <p id="mensajeVacio">Tu carrito está vacío.</p>
+    
+    <div id="listaFavoritos"></div>
+
+    <div class="carrito-total-seccion">
+        Total a Pagar: $<span id="cart-total-price">0.00</span>
+    </div>
+
+    <div class="acciones">
+        <button class="btn-gradient" style="background-color: #FF3B30;" onclick="vaciarCarrito()">Vaciar Carrito</button>
+        <button class="btn-gradient" style="background: linear-gradient(135deg, #16a34a, #15803d);" onclick="simularPago()">💳 Pagar</button>
+    </div>
+</div>
+
+    <footer class="main-footer">
+        <p class="slogan">BiteMatch: Desliza. Antójate. Devora.</p>
+        <p class="copyright">&copy; CEFRAM 2026. TDS "B"</p>
+    </footer>
+
+    <script>
+        const CLAVE_CARRITO = 'bitematch_carrito';
+
+        function cargarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || '[]');
+            const listaFavoritos = document.getElementById('listaFavoritos');
+            const mensajeVacio = document.getElementById('mensajeVacio');
+            const contadorCarrito = document.getElementById('contador-carrito');
+            const totalPrecioSpan = document.getElementById('cart-total-price');
+
+            listaFavoritos.innerHTML = '';
+
+            let totalItems = 0;
+            let totalPrecio = 0;
+
+            if (carrito.length === 0) {
+                mensajeVacio.style.display = 'block';
+                contadorCarrito.textContent = '0';
+                totalPrecioSpan.textContent = '0.00';
+                return;
+            }
+
+            mensajeVacio.style.display = 'none';
+
+            carrito.forEach((item, index) => {
+                let subtotal = item.precio * item.cantidad;
+                totalItems += item.cantidad;
+                totalPrecio += subtotal;
+
+                let registroDiv = document.createElement('div');
+                registroDiv.className = 'registro';
+                registroDiv.innerHTML = `
+                    <img src="${item.foto}" alt="${item.nombre}">
+                    <div class="datos">
+                        <h3>${item.nombre}</h3>
+                        <p>${item.detalle}</p>
+                        <small>Cantidad: ${item.cantidad} | Subtotal: $${subtotal.toFixed(2)}</small>
+                    </div>
+                    <button class="eliminar" onclick="eliminarItem(${index})" title="Eliminar">🗑️</button>
+                `;
+                listaFavoritos.appendChild(registroDiv);
+            });
+
+            contadorCarrito.textContent = totalItems;
+            totalPrecioSpan.textContent = totalPrecio.toFixed(2);
+        }
+
+        function eliminarItem(index) {
+            let carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || '[]');
+            carrito.splice(index, 1);
+            localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
+            cargarCarrito();
+        }
+
+        function vaciarCarrito() {
+            localStorage.removeItem(CLAVE_CARRITO);
+            cargarCarrito();
+        }
+
+        function simularPago() {
+            let carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || '[]');
+            if (carrito.length === 0) {
+                alert("El carrito está vacío. Agrega platillos antes de pagar.");
+                return;
+            }
+            document.getElementById('modalPago').classList.add('show');
+        }
+
+        function cerrarModalPago() {
+            localStorage.removeItem(CLAVE_CARRITO);
+            document.getElementById('modalPago').classList.remove('show');
+            cargarCarrito();
+        }
+
+        // Cargar al iniciar la página
+        cargarCarrito();
+    </script>
+    <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar el menú si el usuario hace clic fuera de él
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    }
+</script>
+</body>
+</html>
