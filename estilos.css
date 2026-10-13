@@ -101,26 +101,26 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
         flex: 1 1 150px !important;
     }
   .match-popup {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background-color: rgba(0, 0, 0, 0.85) !important;
-        padding: 0 !important;
-        box-sizing: border-box !important;
-    }
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
 
-    .match-popup .match-content {
-        width: 85% !important;
-        max-width: 300px !important;
-        margin: 0 auto !important;
-        padding: 20px !important;
-        box-sizing: border-box !important;
-    }
+.match-popup .match-content {
+    width: 90% !important;
+    max-width: 310px !important;
+    margin: auto !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
 }
 :root {
             --primary-red: #ff4b4b;
