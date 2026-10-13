@@ -100,11 +100,18 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
         min-width: 0 !important;
         flex: 1 1 150px !important;
     }
-   .match-popup .match-content {
-        max-width: 88% !important;
-        width: 88% !important;
-        box-sizing: border-box !important;
-    }
+   .match-popup {
+    padding: 15px !important;
+    box-sizing: border-box !important;
+}
+
+.match-popup .match-content {
+    width: 90% !important;
+    max-width: 310px !important;
+    margin: 0 auto !important;
+    padding: 25px 20px !important;
+    box-sizing: border-box !important;
+}
 }
 :root {
             --primary-red: #ff4b4b;
