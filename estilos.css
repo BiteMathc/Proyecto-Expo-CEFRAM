@@ -995,7 +995,7 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
     background: linear-gradient(135deg, #5856D6, #6332c2); 
     color: #ffffff !important;
     padding: 10px 16px !important;
-    border-radius: 12px !important; 
+    border-radius: 50px !important; 
     font-weight: 700;
     font-size: 0.9rem;
     box-shadow: 0 4px 15px rgba(88, 86, 214, 0.3);
