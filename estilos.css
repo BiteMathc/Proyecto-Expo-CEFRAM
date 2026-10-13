@@ -1,5 +1,6 @@
 @font-face { font-family : "Jupiteroid"; src: url(jupiteroid/Jupiteroid-Regular.ttf); font-weight: bold;}
 body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; padding: 0; background: #D3C4F8; background-attachment: fixed; align-items: center; color: #333333; }
+html, body { max-width: 100% !important; overflow-x: hidden !important;}
 .main-header { background:#121826; color: #121826; padding: 1rem; align-items: center; text-align: center; display: flex; justify-content: space-between; padding: 8px 5px;  border-bottom: 1px solid #e0e0e0;}
 .logo-container img { max-height: 95px; width: auto; display: block;}
 .nav-menu { background:#121826; padding: 5px 10px; text-align: center; display: flex; gap: 12px; }
@@ -101,26 +102,27 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
         flex: 1 1 150px !important;
     }
   .match-popup {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    background-color: rgba(0, 0, 0, 0.85) !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-}
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background-color: rgba(0, 0, 0, 0.85) !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        z-index: 9999 !important; 
+    }
 
-.match-popup .match-content {
-    width: 90% !important;
-    max-width: 310px !important;
-    margin: auto !important;
-    padding: 20px !important;
-    box-sizing: border-box !important;
-}
+    .match-popup .match-content {
+        width: 90% !important;
+        max-width: 310px !important;
+        margin: auto !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
 }
 :root {
             --primary-red: #ff4b4b;
@@ -994,18 +996,17 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
 .nav-menu a {
     background: linear-gradient(135deg, #5856D6, #6332c2); 
     color: #ffffff !important;
-    padding: 10px 16px !important;
-    border-radius: 50px !important; 
+    padding: 12px 12px !important; 
+    font-size: 0.9rem !important;    
+    border-radius: 50px !important;
     font-weight: 700;
-    font-size: 0.9rem;
     box-shadow: 0 4px 15px rgba(88, 86, 214, 0.3);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex !important;
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
-    width: 100% !important; 
-    box-sizing: border-box !important;
+    gap: 12px;                        
     text-decoration: none !important;
+    white-space: nowrap !important;  
 }
 .nav-menu a:hover {
     background: linear-gradient(135deg, #FF3B30, #e03126); /* Cambia a rojo al pasar el cursor */
