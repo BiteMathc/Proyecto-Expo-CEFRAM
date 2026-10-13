@@ -1,4 +1,4 @@
-@font-face { font-family : "Jupiteroid"; src: url(jupiteroid/Jupiteroid-Bold.ttf); font-weight: bold;}
+@font-face { font-family : "Jupiteroid"; src: url(jupiteroid/Jupiteroid-Regular.ttf); font-weight: bold;}
 body { font-family: "Jupiteroid", san-serif ; line-height: 1.6; margin: 0; padding: 0; background: #D3C4F8; background-attachment: fixed; align-items: center; color: #333333; }
 .main-header { background:#121826; color: #121826; padding: 1rem; align-items: center; text-align: center; display: flex; justify-content: space-between; padding: 8px 5px;  border-bottom: 1px solid #e0e0e0;}
 .logo-container img { max-height: 95px; width: auto; display: block;}
@@ -78,8 +78,6 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
         background: rgba(255, 255, 255, 0.05);
         font-size: 15px;
     }
-
-    /* SOLUCIÓN AL DESAJUSTE DE LAS TARJETAS EN EL CELULAR */
     .favoritos-container, 
     .carrito-container,
     .tinder-section {
@@ -91,7 +89,7 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
 
     .favoritos-container .registro,
     .carrito-container .registro {
-        flex-wrap: wrap !important; /* Si no cabe en una fila, se acomoda abajo */
+        flex-wrap: wrap !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
         overflow: hidden;
@@ -101,6 +99,11 @@ section {text-align: center; padding: 20px; max-width: 800px; margin: auto; back
     .carrito-container .datos {
         min-width: 0 !important;
         flex: 1 1 150px !important;
+    }
+   .match-popup .match-content {
+        max-width: 88% !important;
+        width: 88% !important;
+        box-sizing: border-box !important;
     }
 }
 :root {
@@ -692,7 +695,7 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
     }
 }
 /* ==========================================================================
-   ESTILO MODERNO TIPO APP DE DELIVERY (PedidosYa / Temu) PARA EL CARRITO
+   ESTILO MODERNO TIPO APP DE DELIVERY PARA EL CARRITO
    ========================================================================== */
 
 .carrito-container {
@@ -706,8 +709,6 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
     text-align: left;
     font-family: "Jupiteroid", sans-serif;
 }
-
-/* Encabezado limpio con estilo app */
 .carrito-container .encabezado {
     display: flex;
     align-items: center;
@@ -724,7 +725,6 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
     font-weight: 800;
 }
 
-/* Contador estilo badge moderno */
 .carrito-container .contador {
     background: #FF3B30;
     color: white;
@@ -735,7 +735,7 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
     box-shadow: 0 4px 10px rgba(255, 59, 48, 0.25);
 }
 
-/* Mensaje de carrito vacío */
+
 .carrito-container #mensajeVacio {
     color: #64748b;
     font-size: 1rem;
@@ -743,7 +743,6 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
     margin: 40px 0;
 }
 
-/* Lista de productos tipo "item de pedido" */
 .carrito-container #listaFavoritos {
     display: grid;
     gap: 12px;
@@ -906,15 +905,81 @@ section { text-align: center; padding: 20px; max-width: 800px; background: white
         flex-direction: column-reverse;
     }
 }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-contenido {
+    width: 100%;
+    max-width: 430px;
+    background-color: white;
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    color: #555;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.modal-contenido label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.modal-contenido input,
+.modal-contenido select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.aviso-pago {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #fff3cd;
+    color: #664d03;
+    font-size: 14px;
+}
+
+.btn-confirmar {
+    width: 100%;
+    margin-top: 22px;
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
 /* ==========================================================================
    BOTONES DEL MENÚ 
    ========================================================================== */
 
 .nav-menu a {
-    background: linear-gradient(135deg, #5856D6, #6332c2); /* Degradado morado base */
+    background: linear-gradient(135deg, #5856D6, #6332c2); 
     color: #ffffff !important;
     padding: 8px 18px !important;
-    border-radius: 50px !important; /* Forma de píldora redondeada */
+    border-radius: 50px !important;
     font-weight: 700;
     font-size: 0.9rem;
     box-shadow: 0 4px 15px rgba(88, 86, 214, 0.3);
