@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras - BiteMatch</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="../estilo/estilos.css">
 </head>
 <body>
  <header class="main-header">
     <div class="logo-container">
-        <img src="Logo-removebg-preview.png" alt="Logo de BiteMatch">
+        <img src="../imagen/Logo-removebg-preview.png" alt="Logo de BiteMatch">
     </div>
 
     <!-- Botón de 3 puntos para celular -->
@@ -54,6 +54,44 @@
         <button class="btn-gradient" style="background: linear-gradient(135deg, #16a34a, #15803d);" onclick="simularPago()">💳 Pagar</button>
     </div>
 </div>
+<div id="modalPago" class="modal">
+    <div class="modal-contenido">
+        <button class="cerrar-modal" onclick="cerrarModalPago()">
+            &times;
+        </button>
+
+        <h2>Confirmar pedido</h2>
+
+        <p>
+            Total a pagar:
+            $<strong id="modalTotal">0.00</strong>
+        </p>
+
+        <p class="aviso-pago">
+            No se realizará ningún cobro real.
+        </p>
+
+        <label for="nombreCliente">Nombre del cliente:</label>
+        <input
+            type="text"
+            id="nombreCliente"
+            placeholder="Escribe tu nombre"
+            required
+        >
+
+        <label for="metodoPago">Método de pago:</label>
+        <select id="metodoPago">
+            <option value="">Selecciona un método</option>
+            <option value="Tarjeta simulada">Tarjeta/Transferencia</option>
+            <option value="Efectivo">Pago en efectivo</option>
+        </select>
+
+        <button class="btn-gradient btn-confirmar" onclick="confirmarPago()">
+            Confirmar pedido
+        </button>
+    </div>
+</div>
+
 
     <footer class="main-footer">
         <p class="slogan">BiteMatch: Desliza. Antójate. Devora.</p>
@@ -105,6 +143,7 @@
 
             contadorCarrito.textContent = totalItems;
             totalPrecioSpan.textContent = totalPrecio.toFixed(2);
+
         }
 
         function eliminarItem(index) {
@@ -118,23 +157,56 @@
             localStorage.removeItem(CLAVE_CARRITO);
             cargarCarrito();
         }
+function simularPago() {
+    let carrito = JSON.parse(
+        localStorage.getItem(CLAVE_CARRITO) || '[]'
+    );
 
-        function simularPago() {
-            let carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || '[]');
-            if (carrito.length === 0) {
-                alert("El carrito está vacío. Agrega platillos antes de pagar.");
-                return;
-            }
-            document.getElementById('modalPago').classList.add('show');
-        }
+    if (carrito.length === 0) {
+        alert("El carrito está vacío. Agrega platillos antes de pagar.");
+        return;
+    }
+    const total = document.getElementById('cart-total-price').textContent;
+    document.getElementById('modalTotal').textContent = total;
+    document.getElementById('modalPago').classList.add('show');
+}
 
-        function cerrarModalPago() {
-            localStorage.removeItem(CLAVE_CARRITO);
-            document.getElementById('modalPago').classList.remove('show');
-            cargarCarrito();
-        }
+function cerrarModalPago() {
+    document.getElementById('modalPago').classList.remove('show');
+}
 
-        // Cargar al iniciar la página
+function confirmarPago() {
+    const nombre = document.getElementById('nombreCliente').value.trim();
+    const metodo = document.getElementById('metodoPago').value;
+
+    if (nombre === '') {
+        alert('Escribe el nombre del cliente.');
+        return;
+    }
+
+    if (metodo === '') {
+        alert('Selecciona un método de pago.');
+        return;
+    }
+
+    const numeroPedido =
+        'BM-' + Math.floor(100000 + Math.random() * 900000);
+
+    const total = document.getElementById('modalTotal').textContent;
+
+    alert(
+        '¡Pedido confirmado!\\n\\n' +
+        'Cliente: ' + nombre + '\\n' +
+        'Método: ' + metodo + '\\n' +
+        'Total: $' + total + '\\n' +
+        'Número de pedido: ' + numeroPedido
+    );
+    localStorage.removeItem(CLAVE_CARRITO);
+
+    document.getElementById('modalPago').classList.remove('show');
+
+    cargarCarrito();
+}
         cargarCarrito();
     </script>
     <script>
@@ -145,8 +217,6 @@
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
-
-        // Cerrar el menú si el usuario hace clic fuera de él
         document.addEventListener('click', (e) => {
             if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
                 navMenu.classList.remove('active');
