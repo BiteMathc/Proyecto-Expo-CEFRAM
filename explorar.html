@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explorar - BiteMatch</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="estilos.css">
+     <link rel="stylesheet" href="../estilo/estilos.css">
 </head>
 <body>
  <header class="main-header">
     <div class="logo-container">
-        <img src="Logo-removebg-preview.png" alt="Logo de BiteMatch">
+        <img src="../imagen/Logo-removebg-preview.png" alt="Logo de BiteMatch">
     </div>
 
     <!-- Botón de 3 puntos para celular -->
@@ -21,7 +21,7 @@
     <!-- Menú de navegación -->
     <nav class="nav-menu" id="navMenu">
         <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
-        <a href="2descubre.html"><i class="fa-solid fa-fire"></i> Descubrir</a>
+        <a href="2descubre.html"><i class="fa-solid fa-fire"></i> Match</a>
         <a href="favoritos.html"><i class="fa-solid fa-heart"></i> Favoritos</a>
         <a href="explorar.html"><i class="fa-solid fa-compass"></i> Explorar</a> 
         <a href="miperfil.html"><i class="fa-solid fa-user"></i> Mi Perfil</a>
@@ -34,7 +34,7 @@
             
             <div class="explorar-header">
                 <h2>¿De qué tienes antojo hoy?</h2>
-                <p>Usa los filtros o haz una búsqueda rápida para afinar tu puntería</p>
+                <p>Usa los filtros y haz una búsqueda rápida para afinar tu puntería</p>
             </div>
 
             <div class="buscador-contenedor">
@@ -45,23 +45,6 @@
 
             <div class="filtros-avanzados">
                 
-                <div class="filtro-grupo">
-                    <label for="filtro-precio">Presupuesto:</label>
-                    <select id="filtro-precio" class="select-filtro">
-                        <option value="todos">Cualquier precio</option>
-                        <option value="economico">Económico ($)</option>
-                        <option value="moderado">Moderado ($$)</option>
-                        <option value="premium">Premium ($$$)</option>
-                    </select>
-                </div>
-
-                <div class="filtro-grupo">
-                    <label for="filtro-distancia">📍 Distancia máxima:</label>
-                    <div class="slider-contenedor">
-                        <input type="range" id="filtro-distancia" min="1" max="50" value="5" class="slider-filtro" oninput="document.getElementById('valor-distancia').innerText = this.value + ' km'">
-                        <span id="valor-distancia">5 km</span>
-                    </div>
-                </div>
 
                 <div class="filtro-grupo">
                     <label for="filtro-calificacion">⭐ Calificación:</label>
@@ -112,46 +95,44 @@
     </footer>
 <script>
     const restaurantes = [
-        { nombre: "La Choza de la Pizza", categoria: "Pizzas", precio: "moderado", distancia: 1, calificacion: 4.2, imagen: "🍕" },
-        { nombre: "Chef Johnny's", categoria: "Pizzas", precio: "premiun", distancia: 2, calificacion: 4.2, imagen: "🍕" },
-        { nombre: "La Tradicional", categoria: "Pizzas", precio: "premiun", distancia: 3, calificacion: 4.2, imagen: "🍕" },
-        { nombre: "Little Italy Pizza", categoria: "Pizzas", precio: "economico", distancia: 3, calificacion: 4.2, imagen: "🍕" },
-        { nombre: "Pixel Pizza", categoria: "Pizzas", precio: "moderado", distancia: 3, calificacion: 4.2, imagen: "🍕" },
-        { nombre: "Imperial Burger", categoria: "Hamburguesas", precio: "moderado", distancia: 2, calificacion: 4.3, imagen: "🍔" },
-        { nombre: "Donald’s Diner", categoria: "Hamburguesas", precio: "moderado", distancia: 1, calificacion: 4.4, imagen: "🍔" },
-        { nombre: "Winnie’s", categoria: "Hamburguesas", precio: "premiun", distancia: 2, calificacion: 4.3, imagen: "🍔" },
-        { nombre: "Crazy Dogs", categoria: "Hamburguesas", precio: "moderado", distancia: 12, calificacion: 4.3, imagen: "🍔" },
-        { nombre: "Donut Master", categoria: "Postres", precio: "moderado", distancia: 2, calificacion: 4.1, imagen: "🍩" },
-        { nombre: "La Artesanal", categoria: "Postres", precio: "premiun", distancia: 2, calificacion: 4.3, imagen: "🍩" },
-        { nombre: "El Portal", categoria: "Postres", precio: "economico", distancia: 1, calificacion: 4.1, imagen: "🍩" },
-        { nombre: "Frosty Bar", categoria: "Postres", precio: "moderado", distancia: 1, calificacion: 4.2, imagen: "🍩" },
-        { nombre: "Helados Rosita", categoria: "Postres", precio: "moderado", distancia: 2, calificacion: 4.8, imagen: "🍩" },
-        { nombre: "Chicago", categoria: "Postres", precio: "premiun", distancia: 1, calificacion: 4.3, imagen: "🍩" },
-        { nombre: "Pasteleria Bon Bon", categoria: "Postres", precio: "premiun", distancia: 4, calificacion: 3.9, imagen: "🍩" },
-        { nombre: "Barrio Jalisco", categoria: "Comida Mexicana", precio: "economico", distancia: 5, calificacion: 1.0, imagen: "🌮" },
-        { nombre: "Taquería Cielito Lindo", categoria: "Comida Mexicana", precio: "economico", distancia: 15, calificacion: 4.4, imagen: "🌮" },
-        { nombre: "El Burro Loco", categoria: "Comida Mexicana", precio: "moderado", distancia: 4, calificacion: 3.5, imagen: "🌮" },
-        { nombre: "Tacos Municipales", categoria: "Comida Mexicana", precio: "moderado", distancia: 6, calificacion: 4.3, imagen: "🌮" },
-        { nombre: "Chichi's Tacos", categoria: "Comida Mexicana", precio: "moderado", distancia: 2, calificacion: 4.0, imagen: "🌮" },
-        { nombre: "El Macizo", categoria: "Comida Mexicana", precio: "moderado", distancia: 2, calificacion: 4.4, imagen: "🌮" },
-        { nombre: "Los Chilitos", categoria: "Comida Mexicana", precio: "moderado", distancia: 2, calificacion: 4.5, imagen: "🌮" },
-        { nombre: "Pollo del Campo", categoria: "Pollo", precio: "economico", distancia: 1, calificacion: 4.3, imagen: "🍗" },
-        { nombre: "La Granja", categoria: "Pollo", precio: "moderado", distancia: 1, calificacion: 4.3, imagen: "🍗" },
-        { nombre: "Tennessee Crispy", categoria: "Pollo", precio: "moderado", distancia: 1, calificacion: 4.2, imagen: "🍗" },
-        { nombre: "Pollo Chiquito", categoria: "Pollo", precio: "economico", distancia: 3, calificacion: 2.9, imagen: "🍗" },
-        { nombre: "Tío Pollo", categoria: "Pollo", precio: "economico", distancia: 1, calificacion: 3.8, imagen: "🍗" },
-        { nombre: "Pollo Supremo", categoria: "Pollo", precio: "premiun", distancia: 3, calificacion: 4.3, imagen: "🍗" },
-        { nombre: "La Granja", categoria: "Pollo", precio: "moderado", distancia: 3, calificacion: 4.4, imagen: "🍗" },
-        { nombre: "Boba Boom", categoria: "Bebidas", precio: "moderado", distancia: 4, calificacion: 4.0, imagen: "☕" },
-        { nombre: "Moonlight Coffee", categoria: "Bebidas", precio: "premiun", distancia: 2, calificacion: 4.3, imagen: "☕" },
-        { nombre: "Coffee Station", categoria: "Bebidas", precio: "moderado", distancia: 1, calificacion: 4.5, imagen: "☕" },
-        { nombre: "Espresso Vita", categoria: "Bebidas", precio: "moderado", distancia: 3, calificacion: 5.0, imagen: "☕" },
+        { nombre: "La Choza de la Pizza", categoria: "Pizzas",  calificacion: 4.2, imagen: "🍕" },
+        { nombre: "Chef Johnny's", categoria: "Pizzas",  calificacion: 4.2, imagen: "🍕" },
+        { nombre: "La Tradicional", categoria: "Pizzas",   calificacion: 4.2, imagen: "🍕" },
+        { nombre: "Little Italy Pizza", categoria: "Pizzas",   calificacion: 4.2, imagen: "🍕" },
+        { nombre: "Pixel Pizza", categoria: "Pizzas",  calificacion: 4.2, imagen: "🍕" },
+        { nombre: "Imperial Burger", categoria: "Hamburguesas",   calificacion: 4.3, imagen: "🍔" },
+        { nombre: "Donald’s Diner", categoria: "Hamburguesas",   calificacion: 4.4, imagen: "🍔" },
+        { nombre: "Winnie’s", categoria: "Hamburguesas",  calificacion: 4.3, imagen: "🍔" },
+        { nombre: "Crazy Dogs", categoria: "Hamburguesas",   calificacion: 4.3, imagen: "🍔" },
+        { nombre: "Donut Master", categoria: "Postres",   calificacion: 4.1, imagen: "🍩" },
+        { nombre: "La Artesanal", categoria: "Postres",   calificacion: 4.3, imagen: "🍩" },
+        { nombre: "El Portal", categoria: "Postres",  calificacion: 4.1, imagen: "🍩" },
+        { nombre: "Frosty Bar", categoria: "Postres",   calificacion: 4.2, imagen: "🍩" },
+        { nombre: "Helados Rosita", categoria: "Postres",   calificacion: 4.8, imagen: "🍩" },
+        { nombre: "Chicago", categoria: "Postres",  calificacion: 4.3, imagen: "🍩" },
+        { nombre: "Pasteleria Bon Bon", categoria: "Postres",   calificacion: 3.9, imagen: "🍩" },
+        { nombre: "Barrio Jalisco", categoria: "Comida Mexicana",  calificacion: 1.0, imagen: "🌮" },
+        { nombre: "Taquería Cielito Lindo", categoria: "Comida Mexicana",   calificacion: 4.4, imagen: "🌮" },
+        { nombre: "El Burro Loco", categoria: "Comida Mexicana",   calificacion: 3.5, imagen: "🌮" },
+        { nombre: "Tacos Municipales", categoria: "Comida Mexicana",  calificacion: 4.3, imagen: "🌮" },
+        { nombre: "Chichi's Tacos", categoria: "Comida Mexicana",  calificacion: 4.0, imagen: "🌮" },
+        { nombre: "El Macizo", categoria: "Comida Mexicana",   calificacion: 4.4, imagen: "🌮" },
+        { nombre: "Los Chilitos", categoria: "Comida Mexicana", calificacion: 4.5, imagen: "🌮" },
+        { nombre: "Pollo del Campo", categoria:"Pollo", calificacion: 4.3, imagen: "🍗"},
+        { nombre: "La Granja", categoria: "Pollo", calificacion: 4.3, imagen: "🍗" },
+        { nombre: "Tennessee Crispy", categoria: "Pollo",  calificacion: 4.2, imagen: "🍗" },
+        { nombre: "Pollo Chiquito", categoria: "Pollo",   calificacion: 2.9, imagen: "🍗" },
+        { nombre: "Tío Pollo", categoria: "Pollo",  calificacion: 3.8, imagen: "🍗" },
+        { nombre: "Pollo Supremo", categoria: "Pollo",  calificacion: 4.3, imagen: "🍗" },
+        { nombre: "Campo y Brasa", categoria: "Pollo",  calificacion: 4.4, imagen: "🍗" },
+        { nombre: "Boba Boom", categoria: "Bebidas",  calificacion: 4.0, imagen: "☕" },
+        { nombre: "Moonlight Coffee", categoria: "Bebidas",  calificacion: 4.3, imagen: "☕" },
+        { nombre: "Coffee Station", categoria: "Bebidas",  calificacion: 4.5, imagen: "☕" },
+        { nombre: "Espresso Vita", categoria: "Bebidas",  calificacion: 5.0, imagen: "☕" },
     ];
 
     const inputBusqueda = document.querySelector('.input-busqueda');
     const btnBuscar = document.querySelector('.btn-buscar');
-    const filtroPrecio = document.getElementById('filtro-precio');
-    const filtroDistancia = document.getElementById('filtro-distancia');
     const filtroCalificacion = document.getElementById('filtro-calificacion');
     const contenedorResultados = document.getElementById('resultados-restaurantes');
     const botonesBurbujas = document.querySelectorAll('.burbuja-antojo');
@@ -175,10 +156,7 @@
                 <div style="font-size: 40px; margin-bottom: 10px;">${restaurante.imagen}</div>
                 <h4 style="margin: 5px 0; color: #333;">${restaurante.nombre}</h4>
                 <p style="margin: 2px 0; font-size: 14px; color: #666;">Categoría: ${restaurante.categoria}</p>
-                <p style="margin: 2px 0; font-size: 13px; color: #ff9800;">⭐ ${restaurante.calificacion} | 📍 ${restaurante.distancia} km</p>
-                <p style="margin: 5px 0 0 0; font-weight: bold; font-size: 12px; color: #4caf50;">
-                    ${restaurante.precio === 'economico' ? '$' : restaurante.precio === 'moderado' ? '$$' : '$$$'}
-                </p>
+                <p style="margin: 2px 0; font-size: 13px; color: #ff9800;">⭐ ${restaurante.calificacion} 
             `;
             contenedorResultados.appendChild(tarjeta);
         });
@@ -186,8 +164,6 @@
 
     function filtrarProyectos() {
         const textoBusqueda = inputBusqueda.value.toLowerCase().trim();
-        const precioMax = filtroPrecio.value;
-        const distanciaMax = parseInt(filtroDistancia.value);
         const calificacionMin = filtroCalificacion.value;
 
         const resultadoFiltrado = restaurantes.filter(restaurante => {
@@ -198,19 +174,13 @@
             // Filtro por Burbujas de categorías
             const coincideCategoria = (categoriaSeleccionada === "todas" || restaurante.categoria === categoriaSeleccionada);
 
-            // Filtro por Presupuesto
-            const coincidePrecio = (precioMax === "todos" || restaurante.precio === precioMax);
-
-            // Filtro por Rango de Distancia
-            const coincideDistancia = restaurante.distancia <= distanciaMax;
-
             // Filtro por Estrellas
             let coincideCalificacion = true;
             if (calificacionMin !== "todas") {
                 coincideCalificacion = restaurante.calificacion >= parseFloat(calificacionMin);
             }
 
-            return coincideTexto && coincideCategoria && coincidePrecio && coincideDistancia && coincideCalificacion;
+            return coincideTexto && coincideCategoria && coincideCalificacion ;
         });
 
         mostrarRestaurantes(resultadoFiltrado);
@@ -218,15 +188,8 @@
 
     btnBuscar.addEventListener('click', filtrarProyectos);
     inputBusqueda.addEventListener('keyup', (e) => { if (e.key === 'Enter') filtrarProyectos(); });
-    filtroPrecio.addEventListener('change', filtrarProyectos);
     filtroCalificacion.addEventListener('change', filtrarProyectos);
     
-    // El slider actualiza el número en vivo y filtra simultáneamente
-    filtroDistancia.addEventListener('input', () => {
-        document.getElementById('valor-distancia').innerText = filtroDistancia.value + ' km';
-        filtrarProyectos();
-    });
-
     // Control de las Burbujas (Toggle de selección)
     botonesBurbujas.forEach(boton => {
         boton.addEventListener('click', () => {

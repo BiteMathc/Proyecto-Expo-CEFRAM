@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras - BiteMatch</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="../estilo/estilos.css">
+    <link rel="icon" type="image/png" href="../imagen/Logo-removebg-preview.png">
 </head>
 <body>
  <header class="main-header">
     <div class="logo-container">
-        <img src="Logo-removebg-preview.png" alt="Logo de BiteMatch">
+        <img src="../imagen/Logo-removebg-preview.png" alt="Logo de BiteMatch">
     </div>
 
     <!-- Botón de 3 puntos para celular -->
@@ -21,7 +22,7 @@
     <!-- Menú de navegación -->
     <nav class="nav-menu" id="navMenu">
         <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
-        <a href="2descubre.html"><i class="fa-solid fa-fire"></i> Descubrir</a>
+        <a href="2descubre.html"><i class="fa-solid fa-fire"></i> Match</a>
         <a href="favoritos.html"><i class="fa-solid fa-heart"></i> Favoritos</a>
         <a href="explorar.html"><i class="fa-solid fa-compass"></i> Explorar</a> 
         <a href="miperfil.html"><i class="fa-solid fa-user"></i> Mi Perfil</a>
@@ -80,13 +81,28 @@
         >
 
         <label for="metodoPago">Método de pago:</label>
-        <select id="metodoPago">
+        <select id="metodoPago" onchange="mostrarCamposTarjeta()">
             <option value="">Selecciona un método</option>
-            <option value="Tarjeta simulada">Tarjeta/Transferencia</option>
+            <option value="Tarjeta">Tarjeta</option>
             <option value="Efectivo">Pago en efectivo</option>
         </select>
+        <div id="seccionTarjeta" style="display: none; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px;">
+            <label for="numTarjeta">Número de tarjeta:</label>
+            <input type="text" id="numTarjeta" placeholder="1234 5678 9012 3456" maxlength="19">
 
-        <button class="btn-gradient btn-confirmar" onclick="confirmarPago()">
+            <div style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label for="expTarjeta">Expiración:</label>
+                    <input type="text" id="expTarjeta" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div style="flex: 1;">
+                    <label for="cvvTarjeta">CVV:</label>
+                    <input type="password" id="cvvTarjeta" placeholder="123" maxlength="4">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-gradient btn-confirmar" onclick="confirmarPago()" style="margin-top: 15px;">
             Confirmar pedido
         </button>
     </div>
@@ -157,10 +173,23 @@
             localStorage.removeItem(CLAVE_CARRITO);
             cargarCarrito();
         }
+
+function mostrarCamposTarjeta() {
+    const metodo = document.getElementById('metodoPago').value;
+    const seccionTarjeta = document.getElementById('seccionTarjeta');
+
+    if (metodo === 'Tarjeta') {
+        seccionTarjeta.style.display = 'block';
+    } else {
+        seccionTarjeta.style.display = 'none';
+        document.getElementById('numTarjeta').value = '';
+        document.getElementById('expTarjeta').value = '';
+        document.getElementById('cvvTarjeta').value = '';
+    }
+}
+
 function simularPago() {
-    let carrito = JSON.parse(
-        localStorage.getItem(CLAVE_CARRITO) || '[]'
-    );
+    let carrito = JSON.parse(localStorage.getItem(CLAVE_CARRITO) || '[]');
 
     if (carrito.length === 0) {
         alert("El carrito está vacío. Agrega platillos antes de pagar.");
@@ -168,6 +197,14 @@ function simularPago() {
     }
     const total = document.getElementById('cart-total-price').textContent;
     document.getElementById('modalTotal').textContent = total;
+    
+    document.getElementById('nombreCliente').value = '';
+    document.getElementById('metodoPago').value = '';
+    document.getElementById('seccionTarjeta').style.display = 'none';
+    document.getElementById('numTarjeta').value = '';
+    document.getElementById('expTarjeta').value = '';
+    document.getElementById('cvvTarjeta').value = '';
+
     document.getElementById('modalPago').classList.add('show');
 }
 
@@ -189,22 +226,32 @@ function confirmarPago() {
         return;
     }
 
-    const numeroPedido =
-        'BM-' + Math.floor(100000 + Math.random() * 900000);
+    if (metodo === 'Tarjeta') {
+        const numTarjeta = document.getElementById('numTarjeta').value.trim();
+        const expTarjeta = document.getElementById('expTarjeta').value.trim();
+        const cvvTarjeta = document.getElementById('cvvTarjeta').value.trim();
 
+        if (numTarjeta === '' || expTarjeta === '' || cvvTarjeta === '') {
+            alert('Por favor, completa los datos simulados de la tarjeta.');
+            return;
+        }
+    }
+
+    const numeroPedido = 'BM-' + Math.floor(100000 + Math.random() * 900000);
     const total = document.getElementById('modalTotal').textContent;
 
+    let mensajeMetodo = metodo === 'Tarjeta' ? 'Tarjeta (Pago aprobado)' : 'Pago en efectivo al entregar';
+
     alert(
-        '¡Pedido confirmado!\\n\\n' +
-        'Cliente: ' + nombre + '\\n' +
-        'Método: ' + metodo + '\\n' +
-        'Total: $' + total + '\\n' +
+        '¡Pedido confirmado con éxito! 🎉\n\n' +
+        'Cliente: ' + nombre + '\n' +
+        'Método: ' + mensajeMetodo + '\n' +
+        'Total: $' + total + '\n' +
         'Número de pedido: ' + numeroPedido
     );
+
     localStorage.removeItem(CLAVE_CARRITO);
-
     document.getElementById('modalPago').classList.remove('show');
-
     cargarCarrito();
 }
         cargarCarrito();
